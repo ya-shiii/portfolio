@@ -1,0 +1,35 @@
+{
+  "slug": "techsavvy",
+  "projectNumber": "004",
+  "title": "TECHSAVVY",
+  "subtitle": "Website & Community Systems",
+  "category": "Community System",
+  "dateRange": "2023 - Present",
+  "clientType": "Non-Profit Tech Community",
+  "featured": true,
+  "summary": "Central platform managing membership enrollment, seminar registration, and digital credentials for tech students.",
+  "technologies": ["Nuxt.js", "Tailwind CSS", "GitHub Pages"],
+  "overview": "TECHSAVVY is the digital hub of Misamis Occidental's leading developer community. It integrates attendee lists, certificate templates, and event schedules into one unified layout.",
+  "problem": "Manual distribution of event certificates was error-prone and consumed hours of organizer time.",
+  "role": "Lead Architect and Community Developer, designing the automated generation workflow.",
+  "solution": "Built a static-generated portal reading CSV rosters and drawing certificates onto HTML5 canvases for immediate PDF download.",
+  "workflow": [
+    { "from": "Event Hub", "to": "Attendee Form", "label": "Self Registration" },
+    { "from": "Attendee Form", "to": "Roster Table", "label": "Attendance Check" },
+    { "from": "Roster Table", "to": "Canvas Renderer", "label": "Draft Certificate Graphics" },
+    { "from": "Canvas Renderer", "to": "PDF Exporter", "label": "Generate Signed Certificate" },
+    { "from": "PDF Exporter", "to": "Member Mailer", "label": "Dispatch Notification" }
+  ],
+  "features": [
+    "Secure attendee self-validation system matching registration database hashes",
+    "Dynamic certificate drawing tool with custom font sizing and orientation",
+    "Upcoming schedule manager showing event dates, speakers, and resources"
+  ],
+  "technicalDecisions": [
+    { "area": "Static Delivery", "tech": "Nuxt static build", "reason": "Runs completely on GitHub Pages, ensuring high availability with $0 infrastructure costs." }
+  ],
+  "challenges": "Generating thousands of high-resolution certificates dynamically in-browser without crashing mobile tabs.",
+  "outcomes": "Automated certificate delivery for over 800 participants, saving approximately 40+ hours of setup per tech event.",
+  "githubLink": "https://github.com/joshuavicente",
+  "liveLink": "https://github.com/joshuavicente"
+}

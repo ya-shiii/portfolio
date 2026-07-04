@@ -1,0 +1,34 @@
+{
+  "slug": "delgar",
+  "projectNumber": "003",
+  "title": "Delgar",
+  "subtitle": "E-Commerce Platform",
+  "category": "E-Commerce",
+  "dateRange": "2023",
+  "clientType": "Retail Enterprise",
+  "featured": true,
+  "summary": "High-performance online catalog and inventory dashboard designed for bulk wholesale items.",
+  "technologies": ["Nuxt.js", "Django REST Framework", "SQLite"],
+  "overview": "Delgar is an enterprise portal designed to showcase a large matrix of products with various size, style, and packaging combinations.",
+  "problem": "Customers struggled with complex Excel spreadsheets and manual order sheets, creating communication gaps and stock delays.",
+  "role": "Frontend Nuxt Engineer, integrating high-speed client searches and bulk pricing filters.",
+  "solution": "Built a Client-side optimized interface with advanced state caching to prevent repeated catalog payloads.",
+  "workflow": [
+    { "from": "Wholesale Catalog", "to": "Bulk Configurator", "label": "Select Matrix Items" },
+    { "from": "Bulk Configurator", "to": "Inventory Broker", "label": "Validate Stock Counts" },
+    { "from": "Inventory Broker", "to": "Quote Engine", "label": "Determine Tier Pricing" },
+    { "from": "Quote Engine", "to": "PDF Generator", "label": "Construct Invoice PDF" },
+    { "from": "PDF Generator", "to": "Account Executive", "label": "Fulfill Order" }
+  ],
+  "features": [
+    "Grid matrix entry allowing quick ordering of multiple variants at once",
+    "On-the-fly PDF invoice generation utilizing custom layouts",
+    "Dynamic volume-based tier discount pricing module"
+  ],
+  "technicalDecisions": [
+    { "area": "Deployment Stack", "tech": "Static Web Build", "reason": "Pre-renders the entire catalog into static pages, loading in milliseconds for speed-focused wholesale buyers." }
+  ],
+  "challenges": "Managing thousands of complex variant combinations on mobile layouts without causing rendering lag.",
+  "outcomes": "Reduced order processing cycles from 2 days to under 15 minutes, boosting client satisfaction metrics.",
+  "githubLink": "https://github.com/joshuavicente"
+}

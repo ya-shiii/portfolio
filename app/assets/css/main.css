@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html, body {
+  background-color: #080810;
+  color: #ffffff;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #8B5CF6 #080810;
+}
+
+/* Custom transitions and scroll behaviors */
+.system-fade-enter-active,
+.system-fade-leave-active {
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.system-fade-enter-from,
+.system-fade-leave-to {
+  opacity: 0;
+  transform: translateZ(-50px) scale(0.95);
+}
+
+/* Hide default cursor on interactive screens if preferred */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(139, 92, 246, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor.active {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(139, 92, 246, 0.1);
+}

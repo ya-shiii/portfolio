@@ -1,0 +1,37 @@
+{
+  "slug": "aptitude",
+  "projectNumber": "001",
+  "title": "Aptitude",
+  "subtitle": "Event Management & Ticketing Platform",
+  "category": "Event Platform",
+  "dateRange": "2023 - 2024",
+  "clientType": "Commercial",
+  "featured": true,
+  "summary": "An enterprise ticketing platform designed to manage high-volume checkins, real-time analytics, and smooth payment processing.",
+  "technologies": ["Nuxt.js", "Django REST Framework", "PostgreSQL", "Stripe", "PayMongo"],
+  "overview": "Aptitude is a ticketing and event orchestration engine designed to support thousands of concurrent check-ins. The platform leverages modern client-side caching alongside robust backend transactional queues.",
+  "problem": "Legacy ticketing portals crashed under ticket release loads, resulting in duplicate order creation and inventory mismatches.",
+  "role": "Lead Full Stack Architect responsible for checkout flow design, API performance, and database locking strategies.",
+  "solution": "Built a system featuring atomic locks during cart reservations and structured data synchronization pathways.",
+  "workflow": [
+    { "from": "User Profile", "to": "Cart Queue", "label": "Reserve Seat" },
+    { "from": "Cart Queue", "to": "Checkout API", "label": "Atomic Lock Check" },
+    { "from": "Checkout API", "to": "Stripe/PayMongo", "label": "Execute Intent" },
+    { "from": "Stripe/PayMongo", "to": "Order Registry", "label": "Webhook Confirmation" },
+    { "from": "Order Registry", "to": "Attendee Records", "label": "Ticket Generation" },
+    { "from": "Attendee Records", "to": "Analytics & Admin", "label": "Sync Stream" }
+  ],
+  "features": [
+    "Atomic cart reservation queues with automatic TTL release",
+    "QR Code ticket check-in pipeline with offline caching validation",
+    "Real-time event analytics dashboards featuring live occupancy tracking"
+  ],
+  "technicalDecisions": [
+    { "area": "Backend Framework", "tech": "Django REST Framework", "reason": "Provides robust database transaction tools and clean serializer logic." },
+    { "area": "Frontend", "tech": "Nuxt.js", "reason": "Enabled fast initial render via static page generation combined with dynamic checkout hydration." }
+  ],
+  "challenges": "Resolving race conditions when two customers checked out the last remaining ticket simultaneously.",
+  "outcomes": "Zero inventory leaks across 10+ major local events, processing over 15,000 tickets seamlessly.",
+  "githubLink": "https://github.com/joshuavicente",
+  "liveLink": "https://github.com/joshuavicente"
+}
