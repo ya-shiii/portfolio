@@ -19,35 +19,83 @@
     "secondaryCtaText": "ABOUT ME"
   },
   "navigation": [
-    { "id": "hero", "label": "System Init", "number": "00" },
-    { "id": "selected-systems", "label": "Selected Systems", "number": "01" },
-    { "id": "what-i-build", "label": "What I Build", "number": "02" },
-    { "id": "about", "label": "About", "number": "03" },
-    { "id": "experience", "label": "Experience", "number": "04" },
-    { "id": "beyond-code", "label": "Beyond the Code", "number": "05" },
-    { "id": "system-stack", "label": "System Stack", "number": "06" },
-    { "id": "contact", "label": "Contact", "number": "07" }
+    {
+      "id": "hero",
+      "label": "System Init",
+      "number": "00"
+    },
+    {
+      "id": "selected-systems",
+      "label": "Selected Systems",
+      "number": "01"
+    },
+    {
+      "id": "what-i-build",
+      "label": "What I Build",
+      "number": "02"
+    },
+    {
+      "id": "about",
+      "label": "About",
+      "number": "03"
+    },
+    {
+      "id": "experience",
+      "label": "Experience",
+      "number": "04"
+    },
+    {
+      "id": "beyond-code",
+      "label": "Beyond the Code",
+      "number": "05"
+    },
+    {
+      "id": "system-stack",
+      "label": "System Stack",
+      "number": "06"
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "number": "07"
+    }
   ],
   "whatIBuild": [
     {
       "title": "Full Stack Applications",
       "description": "Production web applications designed around real business workflows.",
-      "details": ["Responsive Frontends", "State Management", "Async Task Handling"]
+      "details": [
+        "Responsive Frontends",
+        "State Management",
+        "Async Task Handling"
+      ]
     },
     {
       "title": "E-Commerce Platforms",
       "description": "Product, ordering, checkout, and administrative systems built for modern businesses.",
-      "details": ["Inventory tracking", "Payment integration", "Order lifecycle"]
+      "details": [
+        "Inventory tracking",
+        "Payment integration",
+        "Order lifecycle"
+      ]
     },
     {
       "title": "Business Systems",
       "description": "Custom dashboards and internal tools designed to simplify operations and reduce manual work.",
-      "details": ["Realtime Analytics", "Workflow automation", "Role-based control"]
+      "details": [
+        "Realtime Analytics",
+        "Workflow automation",
+        "Role-based control"
+      ]
     },
     {
       "title": "APIs & Integrations",
       "description": "REST APIs, payment gateways, analytics platforms, and third-party service integrations.",
-      "details": ["Django REST Framework", "Stripe & PayMongo", "Webhooks"]
+      "details": [
+        "Django REST Framework",
+        "Stripe & PayMongo",
+        "Webhooks"
+      ]
     }
   ],
   "about": "I'm Joshua Vicente, a Full Stack Developer based in the Philippines. I started in design and front-end development, but I became increasingly interested in what happens behind the interface—how data moves, how business workflows are structured, and how different parts of a system work together.\n\nToday, I build full-stack applications using Django, Django REST Framework, Nuxt.js, Vue.js, and PostgreSQL. I've worked with local and international clients on e-commerce platforms, event systems, administrative tools, and custom business applications.\n\nOutside development, I previously taught Information Technology and currently help lead TECHSAVVY Community in Misamis Occidental. I've also been invited to speak at technology and educational events.\n\nI like building software people actually use.",
@@ -63,7 +111,13 @@
         "Integrated payment solutions such as Stripe and PayMongo for international markets.",
         "Managed database schema migrations and production hosting configurations."
       ],
-      "technologies": ["Django", "Nuxt.js", "Vue.js", "PostgreSQL", "Tailwind CSS"]
+      "technologies": [
+        "Django",
+        "Nuxt.js",
+        "Vue.js",
+        "PostgreSQL",
+        "Tailwind CSS"
+      ]
     },
     {
       "period": "2023–Present",
@@ -76,7 +130,11 @@
         "Curated speaker lineups and educational workshops for local tech graduates.",
         "Collaborated with educational institutions to align syllabus with industry standards."
       ],
-      "technologies": ["Community Building", "Mentorship", "Public Speaking"]
+      "technologies": [
+        "Community Building",
+        "Mentorship",
+        "Public Speaking"
+      ]
     },
     {
       "period": "2024–2025",
@@ -89,7 +147,12 @@
         "Mentored student capstone groups leading to regional research publication.",
         "Created an online grading and assignment system utilized by the department."
       ],
-      "technologies": ["Python", "SQL", "Teaching", "Curriculum Design"]
+      "technologies": [
+        "Python",
+        "SQL",
+        "Teaching",
+        "Curriculum Design"
+      ]
     },
     {
       "period": "2023",
@@ -102,7 +165,13 @@
         "Collaborated with UI designers to implement dynamic charts using Chart.js.",
         "Wrote comprehensive unit tests ensuring high code coverage."
       ],
-      "technologies": ["Python", "Django", "Vue.js", "PostgreSQL", "Git"]
+      "technologies": [
+        "Python",
+        "Django",
+        "Vue.js",
+        "PostgreSQL",
+        "Git"
+      ]
     }
   ],
   "speaking": [
@@ -140,23 +209,45 @@
   "stack": [
     {
       "category": "BACKEND",
-      "items": ["Python", "Django", "Django REST Framework"]
+      "items": [
+        "Python",
+        "Django",
+        "Django REST Framework"
+      ]
     },
     {
       "category": "FRONTEND",
-      "items": ["JavaScript", "Vue.js", "Nuxt.js", "Tailwind CSS"]
+      "items": [
+        "JavaScript",
+        "Vue.js",
+        "Nuxt.js",
+        "Tailwind CSS"
+      ]
     },
     {
       "category": "DATA",
-      "items": ["PostgreSQL", "SQLite"]
+      "items": [
+        "PostgreSQL",
+        "SQLite"
+      ]
     },
     {
       "category": "INTEGRATIONS",
-      "items": ["Stripe", "PayMongo", "Google Analytics 4", "Google Tag Manager", "Meta Pixel"]
+      "items": [
+        "Stripe",
+        "PayMongo",
+        "Google Analytics 4",
+        "Google Tag Manager",
+        "Meta Pixel"
+      ]
     },
     {
       "category": "TOOLS",
-      "items": ["Git", "GitHub", "Figma"]
+      "items": [
+        "Git",
+        "GitHub",
+        "Figma"
+      ]
     }
   ],
   "socialLinks": {

@@ -64,7 +64,7 @@
             <span class="font-mono text-[9px] text-primary">{{ node.number }}</span>
             <span class="font-sans text-sm tracking-widest text-white/90 uppercase font-semibold mt-0.5">{{ node.label }}</span>
           </button>
-          <div v-if="node.id !== navigation[navigation.length - 1].id" class="w-[1px] h-6 bg-primary/20"></div>
+          <div v-if="node.id !== navigation[navigation.length - 1]?.id" class="w-[1px] h-6 bg-primary/20"></div>
         </div>
       </div>
 

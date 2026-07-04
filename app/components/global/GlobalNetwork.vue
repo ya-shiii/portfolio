@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+  <div 
+    class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden transition-opacity duration-700 ease-in-out"
+    :class="{ 'opacity-50': activeSectionId && activeSectionId !== 'hero' }"
+  >
     <canvas ref="canvasRef" class="w-full h-full block absolute top-0 left-0 pointer-events-auto"></canvas>
   </div>
 </template>
@@ -12,11 +15,15 @@ import { useReducedMotion } from '~/composables/useReducedMotion'
 const props = defineProps({
   mode: {
     type: String,
-    default: 'normal' // 'normal' | 'menu' | 'project'
+    default: 'normal'
   },
   activeNodeIndex: {
     type: Number,
     default: 0
+  },
+  activeSectionId: {
+    type: String,
+    default: 'hero'
   }
 })
 
@@ -50,9 +57,6 @@ const targetMouse = new THREE.Vector2(-9999, -9999)
 const clickPulse = ref(0)
 let clickPos = new THREE.Vector3()
 
-// Mobile detection
-const isMobile = () => window.innerWidth < 768 || 'ontouchstart' in window
-
 // Handle window resizing
 const handleResize = () => {
   if (!camera || !renderer || !canvasRef.value) return
@@ -68,35 +72,6 @@ const onPointerMove = (e: PointerEvent) => {
   // Normalize screen coordinates
   targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1
   targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1
-}
-
-// Touch-specific handlers for mobile
-const onTouchMove = (e: TouchEvent) => {
-  if (e.touches.length === 0) return
-  const touch = e.touches[0]!
-  targetMouse.x = (touch.clientX / window.innerWidth) * 2 - 1
-  targetMouse.y = -(touch.clientY / window.innerHeight) * 2 + 1
-}
-
-const onTouchEnd = (e: TouchEvent) => {
-  // Fire click pulse at last touch position
-  if (!camera) return
-  if (e.changedTouches.length > 0) {
-    const touch = e.changedTouches[0]!
-    const raycaster = new THREE.Raycaster()
-    const mouseCoords = new THREE.Vector2(
-      (touch.clientX / window.innerWidth) * 2 - 1,
-      -(touch.clientY / window.innerHeight) * 2 + 1
-    )
-    raycaster.setFromCamera(mouseCoords, camera)
-    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
-    const intersectPoint = new THREE.Vector3()
-    raycaster.ray.intersectPlane(plane, intersectPoint)
-    clickPos.copy(intersectPoint)
-    clickPulse.value = 1.0
-  }
-  // Reset cursor off-screen so nodes stop being magnetized after finger lifts
-  targetMouse.set(-9999, -9999)
 }
 
 const onPointerClick = (e: PointerEvent) => {
@@ -131,12 +106,11 @@ onMounted(() => {
 
   renderer = new THREE.WebGLRenderer({
     canvas: canvasRef.value,
-    antialias: !isMobile(), // Disable MSAA on mobile to save GPU
+    antialias: true,
     alpha: true
   })
   renderer.setSize(window.innerWidth, window.innerHeight)
-  // Cap pixel ratio to 1.5 on mobile to reduce fill cost
-  renderer.setPixelRatio(isMobile() ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2))
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.setClearColor(0x080810, 1)
 
   nodesGroup = new THREE.Group()
@@ -182,20 +156,15 @@ onMounted(() => {
   pointsGeometry.setAttribute('color', new THREE.BufferAttribute(nodeColors, 3))
   
   // Custom Node Material (per-vertex color with soft glow circle)
-  // Point size adapts: smaller on mobile so nodes don't dominate the screen
-  const pointSizeMultiplier = isMobile() ? 30.0 : 45.0
   const nodeMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      uPointSize: { value: pointSizeMultiplier }
-    },
+    uniforms: {},
     vertexShader: `
       attribute vec3 color;
       varying vec3 vColor;
-      uniform float uPointSize;
       void main() {
         vColor = color;
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = uPointSize / -mvPosition.z;
+        gl_PointSize = 45.0 / -mvPosition.z;
         gl_Position = projectionMatrix * mvPosition;
       }
     `,
@@ -219,7 +188,7 @@ onMounted(() => {
   const lineMaterial = new THREE.LineBasicMaterial({
     vertexColors: true,
     transparent: true,
-    opacity: 1.0,
+    opacity: 0.125,
     blending: THREE.AdditiveBlending
   })
   
@@ -229,11 +198,8 @@ onMounted(() => {
 
   // Event Listeners
   window.addEventListener('resize', handleResize)
-  // Pointer events work for mouse; touch events handle mobile
   window.addEventListener('pointermove', onPointerMove)
   window.addEventListener('click', onPointerClick)
-  window.addEventListener('touchmove', onTouchMove, { passive: true })
-  window.addEventListener('touchend', onTouchEnd, { passive: true })
 
   // Simulation Loop
   const clock = new THREE.Clock()
@@ -283,11 +249,10 @@ onMounted(() => {
           // Recede background, focus focus project
           node.targetPos.set(node.basePos.x * 1.2, node.basePos.y * 1.2, -4)
         } else {
-          // Normal mode (floating drift) — reduce amplitude on mobile
-          const driftScale = isMobile() ? 0.15 : 0.3
+          // Normal mode (floating drift)
           const time = clock.getElapsedTime()
-          const driftX = Math.sin(time * 0.5 + i) * driftScale
-          const driftY = Math.cos(time * 0.4 + i) * driftScale
+          const driftX = Math.sin(time * 0.5 + i) * 0.3
+          const driftY = Math.cos(time * 0.4 + i) * 0.3
           node.targetPos.copy(node.basePos).add(new THREE.Vector3(driftX, driftY, 0))
         }
 
@@ -398,8 +363,6 @@ onMounted(() => {
     window.removeEventListener('resize', handleResize)
     window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('click', onPointerClick)
-    window.removeEventListener('touchmove', onTouchMove)
-    window.removeEventListener('touchend', onTouchEnd)
 
     // Properly dispose ThreeJS structures
     if (renderer) renderer.dispose()

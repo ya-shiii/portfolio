@@ -1,7 +1,7 @@
 <template>
   <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 py-24 relative z-10">
     <div class="max-w-4xl w-full mx-auto">
-      <div class="flex items-center gap-4 mb-12">
+      <div class="flex items-center gap-4 mb-12 reveal-header" style="animation-delay: 0s">
         <span class="font-mono text-xs tracking-widest text-primary">06 / SYSTEM STACK</span>
         <div class="h-[1px] flex-grow bg-white/10"></div>
       </div>
@@ -11,7 +11,8 @@
         <div 
           v-for="(group, idx) in stack" 
           :key="idx"
-          class="bg-surface/10 border border-white/5 p-6 rounded-lg relative"
+          class="bg-surface/10 border border-white/5 p-6 rounded-lg relative reveal-item"
+          :style="{ animationDelay: `${0.1 + idx * 0.15}s` }"
         >
           <!-- Corner styling node accents -->
           <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/20"></div>
@@ -54,6 +55,8 @@
 import { ref } from 'vue'
 import { usePortfolioContent } from '~/composables/usePortfolioContent'
 
+defineProps<{ isActive: boolean }>()
+
 const { getPortfolio, getProjects } = usePortfolioContent()
 const { stack } = getPortfolio()
 const projects = getProjects()
@@ -69,6 +72,26 @@ const getProjectsUsingTech = (techName: string) => {
 </script>
 
 <style scoped>
+.reveal-header {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fromLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: itemIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fromLeft {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes itemIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.2s ease-out forwards;
 }

@@ -8,17 +8,42 @@
   "clientType": "Local Food Brand",
   "featured": true,
   "summary": "Custom online ordering system that converts orders directly into kitchen preparation tasks with localized logistics.",
-  "technologies": ["Nuxt.js", "Django", "PostgreSQL", "PayMongo"],
+  "technologies": [
+    "Nuxt.js",
+    "Django",
+    "PostgreSQL",
+    "PayMongo"
+  ],
   "overview": "Kathie's Kitchen is a specialized culinary commerce engine focusing on immediate delivery schedules, ingredient availability updates, and direct-to-courier notifications.",
   "problem": "Generic shopping templates failed to handle location-based delivery radius checks and dynamic kitchen capacity limits.",
   "role": "Full Stack Developer designing the order matching engine and the kitchen operator dashboard.",
   "solution": "Developed a custom geo-fenced cart calculation pipeline, coupled with WebSockets for instantaneous dashboard order updates.",
   "workflow": [
-    { "from": "Product Catalogue", "to": "Cart Checkout", "label": "Configure Add-ons" },
-    { "from": "Cart Checkout", "to": "Delivery Router", "label": "Geo-fence Verify" },
-    { "from": "Delivery Router", "to": "Payment Gateway", "label": "Secure Pay" },
-    { "from": "Payment Gateway", "to": "Kitchen Queue", "label": "Push WebSocket Alert" },
-    { "from": "Kitchen Queue", "to": "Courier Assign", "label": "Order Ready State" }
+    {
+      "from": "Product Catalogue",
+      "to": "Cart Checkout",
+      "label": "Configure Add-ons"
+    },
+    {
+      "from": "Cart Checkout",
+      "to": "Delivery Router",
+      "label": "Geo-fence Verify"
+    },
+    {
+      "from": "Delivery Router",
+      "to": "Payment Gateway",
+      "label": "Secure Pay"
+    },
+    {
+      "from": "Payment Gateway",
+      "to": "Kitchen Queue",
+      "label": "Push WebSocket Alert"
+    },
+    {
+      "from": "Kitchen Queue",
+      "to": "Courier Assign",
+      "label": "Order Ready State"
+    }
   ],
   "features": [
     "Dynamic preparation scheduling limiting orders per 30-minute block",
@@ -26,8 +51,16 @@
     "Tailored billing statement generator sending receipts via SMS/Email"
   ],
   "technicalDecisions": [
-    { "area": "Interactive Canvas", "tech": "Vue.js Composition API", "reason": "Provided instant reactive states for customer modifications on the dish customization steps." },
-    { "area": "Database", "tech": "PostgreSQL", "reason": "Leveraged JSONB fields for customized ingredient selections and spatial queries for distance calculation." }
+    {
+      "area": "Interactive Canvas",
+      "tech": "Vue.js Composition API",
+      "reason": "Provided instant reactive states for customer modifications on the dish customization steps."
+    },
+    {
+      "area": "Database",
+      "tech": "PostgreSQL",
+      "reason": "Leveraged JSONB fields for customized ingredient selections and spatial queries for distance calculation."
+    }
   ],
   "challenges": "Handling high volumes of concurrent dinner orders without locking up the kitchen queue screen.",
   "outcomes": "Increased daily order capacity by 45% while reducing customer communication overhead via automatic status messages.",

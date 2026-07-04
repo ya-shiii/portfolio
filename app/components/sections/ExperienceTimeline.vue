@@ -1,7 +1,7 @@
 <template>
   <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 py-24 relative z-10">
     <div class="max-w-4xl w-full mx-auto">
-      <div class="flex items-center gap-4 mb-12">
+      <div class="flex items-center gap-4 mb-12 reveal-header" style="animation-delay: 0s">
         <span class="font-mono text-xs tracking-widest text-primary">04 / EXPERIENCE</span>
         <div class="h-[1px] flex-grow bg-white/10"></div>
       </div>
@@ -12,7 +12,8 @@
         <div 
           v-for="(job, idx) in experience" 
           :key="idx"
-          class="relative group"
+          class="relative group reveal-job"
+          :style="{ animationDelay: `${0.1 + idx * 0.15}s` }"
         >
           <!-- Core indicator node mapping -->
           <div class="absolute -left-[31px] md:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-background border-2 border-primary group-hover:scale-125 transition-transform flex items-center justify-center">
@@ -84,6 +85,8 @@
 import { ref } from 'vue'
 import { usePortfolioContent } from '~/composables/usePortfolioContent'
 
+defineProps<{ isActive: boolean }>()
+
 const { getPortfolio } = usePortfolioContent()
 const { experience } = getPortfolio()
 
@@ -99,6 +102,26 @@ const toggleHighlight = (idx: number) => {
 </script>
 
 <style scoped>
+.reveal-header {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fromLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-job {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: jobIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fromLeft {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes jobIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .slide-enter-active,
 .slide-leave-active {
   transition: max-height 0.3s ease-out, opacity 0.2s ease-out;

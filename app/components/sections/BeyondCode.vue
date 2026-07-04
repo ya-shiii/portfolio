@@ -1,7 +1,7 @@
 <template>
   <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 py-24 relative z-10">
     <div class="max-w-4xl w-full mx-auto">
-      <div class="flex items-center gap-4 mb-12">
+      <div class="flex items-center gap-4 mb-12 reveal-header" style="animation-delay: 0s">
         <span class="font-mono text-xs tracking-widest text-primary">05 / BEYOND THE CODE</span>
         <div class="h-[1px] flex-grow bg-white/10"></div>
       </div>
@@ -10,7 +10,8 @@
         <div 
           v-for="(talk, idx) in speaking" 
           :key="idx"
-          class="bg-surface/20 border border-white/5 hover:border-primary/20 rounded-lg p-6 flex flex-col justify-between group transition-colors"
+          class="bg-surface/20 border border-white/5 hover:border-primary/20 rounded-lg p-6 flex flex-col justify-between group transition-colors reveal-item"
+          :style="{ animationDelay: `${0.1 + idx * 0.15}s` }"
         >
           <div>
             <div class="flex items-center justify-between gap-4 mb-3">
@@ -51,6 +52,30 @@
 <script setup lang="ts">
 import { usePortfolioContent } from '~/composables/usePortfolioContent'
 
+defineProps<{ isActive: boolean }>()
+
 const { getPortfolio } = usePortfolioContent()
 const { speaking } = getPortfolio()
 </script>
+
+<style scoped>
+.reveal-header {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fromLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: itemIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fromLeft {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes itemIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
