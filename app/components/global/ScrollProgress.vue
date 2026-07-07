@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-6 select-none">
+  <div class="fixed right-2 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-6 select-none">
     <div class="flex flex-col items-center gap-3">
       <button 
         v-for="(node, idx) in navigationList"
@@ -27,5 +27,5 @@ defineEmits(['navigate'])
 
 const { getPortfolio } = usePortfolioContent()
 const { navigation } = getPortfolio()
-const navigationList = navigation.filter(n => n.id !== 'hero') // filter out initial view node for side indicator
+const navigationList = navigation.filter(n => n.id !== 'hero')
 </script>

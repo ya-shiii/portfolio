@@ -38,6 +38,7 @@ export interface ExperienceEntry {
 }
 
 export interface SpeakingEngagement {
+  id: string;
   event: string;
   organization: string;
   date: string;
@@ -46,6 +47,8 @@ export interface SpeakingEngagement {
   topic: string;
   description: string;
   hasCertificate: boolean;
+  certificateImage?: string;
+  images?: string[];
 }
 
 export interface TechnologyItem {

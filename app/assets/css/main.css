@@ -46,3 +46,23 @@ html, body {
   height: 40px;
   background-color: rgba(139, 92, 246, 0.1);
 }
+
+/* Smart Cursor States: Prevent I-beam text cursor on read-only text */
+body, p, h1, h2, h3, h4, h5, h6, span, li, label {
+  cursor: default;
+}
+
+/* Maintain hand/pointer cursor for interactive items */
+a, button, [role="button"], .cursor-pointer, select, input[type="submit"], input[type="button"], border-none {
+  cursor: pointer;
+}
+
+/* Ensure children of interactive/clickable items inherit the pointer/hand cursor */
+a *, button *, [role="button"] *, .cursor-pointer * {
+  cursor: inherit;
+}
+
+/* Preserve I-beam text cursor specifically for typing inputs and textareas */
+input[type="text"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="url"], textarea, [contenteditable="true"] {
+  cursor: text;
+}

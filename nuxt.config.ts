@@ -15,11 +15,15 @@ export default defineNuxtConfig({
         '/projects/kathies-kitchen',
         '/projects/delgar',
         '/projects/techsavvy',
+        '/credentials/nmsc-tech-seminar-2024',
+        '/credentials/wtm-zamboanga-2023',
+        '/credentials/gdg-zamboanga-2023',
       ]
     }
   },
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',
+    pageTransition: { name: 'system-fade', mode: 'out-in' },
     head: {
       title: 'Joshua Vicente | Full Stack Developer',
       meta: [
@@ -44,5 +48,12 @@ export default defineNuxtConfig({
   tailwindcss: {
     exposeConfig: true,
     viewer: false
+  },
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        types: ['node']
+      }
+    }
   }
 })

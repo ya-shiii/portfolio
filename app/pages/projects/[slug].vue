@@ -11,7 +11,7 @@
       
       <!-- Back button -->
       <NuxtLink 
-        to="/"
+        to="/#selected-systems"
         class="inline-flex items-center gap-2 font-mono text-[10px] text-primary tracking-widest uppercase hover:text-white transition-colors mb-12"
       >
         <span>&larr; Return to Core System</span>

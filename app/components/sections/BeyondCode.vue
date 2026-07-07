@@ -38,10 +38,13 @@
 
           <div v-if="talk.hasCertificate" class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
             <span class="font-mono text-[9px] text-white/30 tracking-widest uppercase">VERIFIED CREDENTIAL</span>
-            <div class="flex items-center gap-1 font-mono text-[9px] text-primary group-hover:underline">
+            <NuxtLink 
+              :to="'/credentials/' + talk.id"
+              class="flex items-center gap-1 font-mono text-[9px] text-primary group-hover:underline cursor-pointer"
+            >
               <span>VIEW RECORD</span>
               <span>↗</span>
-            </div>
+            </NuxtLink>
           </div>
         </div>
       </div>

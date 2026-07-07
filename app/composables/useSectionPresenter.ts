@@ -56,6 +56,7 @@ export const useSectionPresenter = () => {
   // Helper to check if current slide has scrollable overflow and is at boundaries
   const getActiveSlideScrollInfo = () => {
     const id = SECTION_IDS[activeIndex.value]
+    if (!id) return { canScrollUp: false, canScrollDown: false }
     const el = document.getElementById(id)
     if (!el) return { canScrollUp: false, canScrollDown: false }
 
@@ -149,6 +150,15 @@ export const useSectionPresenter = () => {
     window.addEventListener('keydown', onKeyDown)
     window.addEventListener('touchstart', onTouchStart, { passive: true })
     window.addEventListener('touchend', onTouchEnd, { passive: true })
+
+    // If loaded or redirected with a hash anchor link (e.g. #beyond-code), sync section index immediately
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hashId = window.location.hash.replace('#', '')
+      const matchIdx = SECTION_IDS.indexOf(hashId)
+      if (matchIdx !== -1) {
+        activeIndex.value = matchIdx
+      }
+    }
   })
 
   onUnmounted(() => {
@@ -164,7 +174,7 @@ export const useSectionPresenter = () => {
     direction,
     isTransitioning,
     sectionIds: SECTION_IDS,
-    activeSectionId: { get value() { return SECTION_IDS[activeIndex.value] } },
+    activeSectionId: { get value() { return SECTION_IDS[activeIndex.value] ?? '' } },
     goTo,
     goToById,
     next,

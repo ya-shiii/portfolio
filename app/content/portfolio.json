@@ -5,7 +5,7 @@
     "title": "Full Stack Developer",
     "brandStatement": "I build software that makes systems work better.",
     "location": "Philippines",
-    "shortBio": "I am Joshua Vicente, a Full Stack Developer based in the Philippines. I started in design and front-end development, but I became increasingly interested in what happens behind the interface—how data moves, how business workflows are structured, and how different parts of a system work together."
+    "shortBio": "Full Stack Developer building production web applications, business platforms, and digital systems for local and international clients."
   },
   "hero": {
     "eyebrow": "FULL STACK DEVELOPER",
@@ -66,26 +66,26 @@
       "description": "Production web applications designed around real business workflows.",
       "details": [
         "Responsive Frontends",
-        "State Management",
-        "Async Task Handling"
+        "REST API Architecture",
+        "Business Workflows"
       ]
     },
     {
       "title": "E-Commerce Platforms",
       "description": "Product, ordering, checkout, and administrative systems built for modern businesses.",
       "details": [
-        "Inventory tracking",
-        "Payment integration",
-        "Order lifecycle"
+        "Product Management",
+        "Payment Integration",
+        "Order Workflows"
       ]
     },
     {
       "title": "Business Systems",
       "description": "Custom dashboards and internal tools designed to simplify operations and reduce manual work.",
       "details": [
-        "Realtime Analytics",
-        "Workflow automation",
-        "Role-based control"
+        "Administrative Dashboards",
+        "Workflow Management",
+        "Operational Tools"
       ]
     },
     {
@@ -102,17 +102,18 @@
   "experience": [
     {
       "period": "2023–Present",
-      "role": "Full Stack Developer",
+      "role": "Full Stack Web Developer",
       "organization": "Freelance",
       "location": "Remote",
-      "summary": "Building production-grade systems and business solutions.",
+      "summary": "Designing and developing production web applications for local and international clients.",
       "highlights": [
-        "Designed and implemented multiple Django & Nuxt web systems.",
-        "Integrated payment solutions such as Stripe and PayMongo for international markets.",
-        "Managed database schema migrations and production hosting configurations."
+        "Built full-stack web applications using Django, Django REST Framework, Nuxt.js, Vue.js, and PostgreSQL.",
+        "Developed RESTful APIs and integrated Stripe, PayMongo, Google Analytics 4, Google Tag Manager, and Meta Pixel.",
+        "Worked directly with clients from requirements and system planning through deployment, maintenance, and feature development."
       ],
       "technologies": [
         "Django",
+        "Django REST Framework",
         "Nuxt.js",
         "Vue.js",
         "PostgreSQL",
@@ -123,79 +124,102 @@
       "period": "2023–Present",
       "role": "Officer-in-Charge / Core Leader",
       "organization": "TECHSAVVY Community",
-      "location": "Misamis Occidental, PH",
-      "summary": "Leading community efforts, workshops, and tech meetups.",
+      "location": "Misamis Occidental, Philippines",
+      "summary": "Leading technology initiatives, community programs, partnerships, and developer mentorship across Misamis Occidental.",
       "highlights": [
-        "Organized community events to foster developer talent in the region.",
-        "Curated speaker lineups and educational workshops for local tech graduates.",
-        "Collaborated with educational institutions to align syllabus with industry standards."
+        "Lead strategic planning and technology initiatives as Officer-in-Charge and Core Leader.",
+        "Collaborate with schools, government agencies, and industry partners to organize technology programs and community events.",
+        "Oversee the development and maintenance of the organization's digital platforms and internal systems.",
+        "Mentor aspiring developers through workshops, technical guidance, and career development initiatives.",
+        "Support partnerships, sponsorships, and organizational growth through technical leadership and project management."
       ],
       "technologies": [
-        "Community Building",
-        "Mentorship",
-        "Public Speaking"
+        "Technical Leadership",
+        "Project Management",
+        "Developer Mentorship",
+        "Community Development"
       ]
     },
     {
-      "period": "2024–2025",
-      "role": "Information Technology Faculty",
+      "period": "Jul 2024–Jun 2025",
+      "role": "Teaching Faculty",
       "organization": "NMSCST",
-      "location": "Misamis Occidental, PH",
-      "summary": "Instructed college-level courses in software engineering and database systems.",
+      "location": "Tangub, Northern Mindanao, Philippines",
+      "summary": "Delivered instruction in Information Technology courses while mentoring students in programming and digital technologies.",
       "highlights": [
-        "Delivered lecture series on Web Development, Databases (SQL), and OOP principles.",
-        "Mentored student capstone groups leading to regional research publication.",
-        "Created an online grading and assignment system utilized by the department."
+        "Taught programming, web development, and other IT-related subjects.",
+        "Prepared instructional materials, laboratory activities, and student assessments.",
+        "Guided students in developing software projects using modern development practices.",
+        "Mentored students in technical problem-solving and career preparation within the IT industry.",
+        "Fostered an engaging learning environment focused on collaboration, creativity, and practical technology application."
       ],
       "technologies": [
-        "Python",
-        "SQL",
-        "Teaching",
-        "Curriculum Design"
+        "Programming",
+        "Web Development",
+        "Information Technology",
+        "Higher Education Teaching"
       ]
     },
     {
-      "period": "2023",
+      "period": "Mar 2023–Jun 2023",
       "role": "Full Stack Developer Intern",
       "organization": "Bluthrive",
-      "location": "Remote",
-      "summary": "Developed components and APIs for enterprise productivity dashboards.",
+      "location": "San Francisco, California, United States · Remote",
+      "summary": "Collaborated with a remote development team to build responsive front-end solutions for international client projects.",
       "highlights": [
-        "Refactored legacy REST endpoints, improving query execution speed by 30%.",
-        "Collaborated with UI designers to implement dynamic charts using Chart.js.",
-        "Wrote comprehensive unit tests ensuring high code coverage."
+        "Developed responsive user interfaces using Nuxt.js, Vue.js, Tailwind CSS, HTML5, and JavaScript.",
+        "Built reusable UI components to improve consistency and maintainability across client projects.",
+        "Applied user experience and responsive design practices across desktop and mobile layouts.",
+        "Collaborated with other interns and the development team using Git-based development workflows.",
+        "Contributed to front-end development for the Buscaolas and Kokoro Foods client projects."
       ],
       "technologies": [
-        "Python",
-        "Django",
+        "Nuxt.js",
         "Vue.js",
-        "PostgreSQL",
+        "JavaScript",
+        "Tailwind CSS",
+        "HTML5",
         "Git"
       ]
     }
   ],
   "speaking": [
     {
-      "event": "NMSC Tech Seminar",
-      "organization": "NMSCST",
-      "date": "2024",
-      "location": "Misamis Occidental",
-      "role": "Invited Resource Speaker",
-      "topic": "System Integration & Practical Software Design",
-      "description": "Spoke about architecting software for real-world operations, emphasizing connection and structural patterns.",
-      "hasCertificate": true
+      "id": "nmsc-tech-seminar-2026",
+      "event": "Code Camp Season 4 2026 Whole Day Tech Seminar",
+      "organization": "TECHSAVVY Community / CICT NMSC",
+      "date": "May 23, 2026",
+      "location": "NMSC, Misamis Occidental",
+      "role": "Resource Speaker",
+      "topic": null,
+      "description": "Participated as a resource speaker during a whole-day technology seminar organized in coordination with CICT NMSC faculty and students, supporting technology education and aspiring student innovators.",
+      "hasCertificate": true,
+      "certificateImage": "/credentials/nmsc-tech-seminar-2026/certificate.jpg",
+      "images": [
+        "/credentials/nmsc-tech-seminar-2026/photo-1.jpg",
+        "/credentials/nmsc-tech-seminar-2026/photo-2.jpg",
+        "/credentials/nmsc-tech-seminar-2026/photo-3.jpg"
+      ]
     },
     {
+      "id": "wtm-zamboanga-2023",
       "event": "Women Techmakers Zamboanga",
       "organization": "WTM / GDG Zamboanga",
       "date": "2023",
-      "location": "Zamboanga (Remote)",
+      "location": "Zamboanga City",
       "role": "Invited Resource Speaker",
       "topic": "Bridging Design and Backends in Nuxt.js",
       "description": "Shared insights on responsive systems, state synchronization, and reactive layouts.",
-      "hasCertificate": true
+      "hasCertificate": true,
+      "certificateImage": "/credentials/wtm-zamboanga-2023/certificate.jpg",
+      "images": [
+        "/credentials/wtm-zamboanga-2023/photo-1.jpg",
+        "/credentials/wtm-zamboanga-2023/photo-2.jpg",
+        "/credentials/wtm-zamboanga-2023/photo-3.jpg"
+      ]
     },
     {
+      "id": "gdg-zamboanga-2023",
       "event": "Google Developer Groups Zamboanga",
       "organization": "GDG Zamboanga",
       "date": "2023",
@@ -203,7 +227,13 @@
       "role": "Invited Resource Speaker",
       "topic": "Modern E-Commerce Orchestration with Django & Vue",
       "description": "Addressed checkout flow state tracking and resilience during API failures.",
-      "hasCertificate": true
+      "hasCertificate": true,
+      "certificateImage": "/credentials/gdg-zamboanga-2023/certificate.jpg",
+      "images": [
+        "/credentials/gdg-zamboanga-2023/photo-1.jpg",
+        "/credentials/gdg-zamboanga-2023/photo-2.jpg",
+        "/credentials/gdg-zamboanga-2023/photo-3.jpg"
+      ]
     }
   ],
   "stack": [
@@ -251,9 +281,9 @@
     }
   ],
   "socialLinks": {
-    "email": "joshua.vicente.dev@gmail.com",
-    "linkedin": "https://linkedin.com/in/joshuavicente",
-    "github": "https://github.com/joshuavicente",
-    "resume": "/resume/joshua-vicente-resume.pdf"
+    "email": "josh.vicente00@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/joshuajvicente",
+    "github": "https://github.com/ya-shiii",
+    "resume": "/resume/Joshua_Vicente_Resume.pdf"
   }
 }

@@ -25,26 +25,28 @@
             <div 
               v-for="item in group.items" 
               :key="item"
-              class="group/item flex flex-col gap-1 cursor-pointer"
+              class="group/item flex flex-col cursor-pointer"
               @mouseenter="hoveredTech = item"
               @mouseleave="hoveredTech = null"
             >
-              <div class="flex items-center justify-between">
-                <span class="font-sans text-sm font-semibold text-white/80 group-hover/item:text-white transition-colors">
+              <div class="flex items-center justify-between py-0.5">
+                <span class="font-sans text-sm font-semibold text-white/80 group-hover/item:text-white transition-colors duration-200">
                   {{ item }}
                 </span>
-                <span class="w-1.5 h-1.5 rounded-full bg-white/10 group-hover/item:bg-primary transition-all"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-white/10 group-hover/item:bg-primary transition-all duration-200"></span>
               </div>
-              
-              <!-- Hover dynamic relationship to projects -->
-              <div 
-                v-if="hoveredTech === item"
-                class="font-mono text-[9px] text-primary/80 animate-fade-in mt-0.5"
-              >
-                Mapped to &rarr; {{ getProjectsUsingTech(item).join(', ') || 'Global Env' }}
+
+              <!-- Smooth expand sub-content using max-height transition -->
+              <div class="tech-sub-content" :class="{ 'tech-sub-content--visible': hoveredTech === item }">
+                <div class="tech-sub-inner font-mono text-[9px] text-primary/80 pt-1 pb-1">
+                  Mapped to &rarr; {{ getProjectsUsingTech(item).join(', ') || 'Global Env' }}
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- Spacer line to prevent grid displacement between cards -->
+          <div class="mt-4 h-[1px] bg-white/[0.03]"></div>
         </div>
       </div>
     </div>
@@ -92,12 +94,22 @@ const getProjectsUsingTech = (techName: string) => {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
+/* Smooth expand container using max-height + opacity transition */
+.tech-sub-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.22s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-2px); }
-  to { opacity: 1; transform: translateY(0); }
+.tech-sub-content--visible {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Inner wrapper needed for grid-template-rows trick (overflow: hidden on child) */
+.tech-sub-inner {
+  overflow: hidden;
 }
 </style>
