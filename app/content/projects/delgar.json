@@ -4,31 +4,79 @@
   "title": "Delgar",
   "subtitle": "E-Commerce Platform",
   "category": "E-Commerce",
-  "dateRange": "2023",
-  "clientType": "Retail Enterprise",
+  "dateRange": "Feb 2026 - Apr 2026",
+  "clientType": "Local Frozen Food Business",
   "featured": true,
-  "summary": "High-performance online catalog and inventory dashboard designed for bulk wholesale items.",
-  "technologies": ["Nuxt.js", "Django REST Framework", "SQLite"],
-  "overview": "Delgar is an enterprise portal designed to showcase a large matrix of products with various size, style, and packaging combinations.",
-  "problem": "Customers struggled with complex Excel spreadsheets and manual order sheets, creating communication gaps and stock delays.",
-  "role": "Frontend Nuxt Engineer, integrating high-speed client searches and bulk pricing filters.",
-  "solution": "Built a Client-side optimized interface with advanced state caching to prevent repeated catalog payloads.",
+  "summary": "Production-ready e-commerce platform built for a local frozen food business, combining a modern customer ordering experience with administrative product and order management.",
+  "technologies": [
+    "Nuxt.js",
+    "Django REST Framework",
+    "PostgreSQL",
+    "Tailwind CSS",
+    "JavaScript"
+  ],
+  "overview": "Delgar is a custom e-commerce platform developed for a local frozen food business. The system provides customers with a responsive online ordering experience and gives administrators dedicated tools for managing products, orders, and customer information.",
+  "problem": "The business needed a more structured digital ordering experience and a centralized way to manage product and order information instead of relying on fragmented manual processes.",
+  "role": "Full Stack Web Developer responsible for the frontend application, backend REST APIs, administrative workflows, and overall system implementation.",
+  "solution": "Designed and developed a Nuxt.js frontend with Tailwind CSS and connected it to Django REST Framework APIs backed by PostgreSQL. The platform centralizes product presentation, customer ordering, and administrative order management.",
   "workflow": [
-    { "from": "Wholesale Catalog", "to": "Bulk Configurator", "label": "Select Matrix Items" },
-    { "from": "Bulk Configurator", "to": "Inventory Broker", "label": "Validate Stock Counts" },
-    { "from": "Inventory Broker", "to": "Quote Engine", "label": "Determine Tier Pricing" },
-    { "from": "Quote Engine", "to": "PDF Generator", "label": "Construct Invoice PDF" },
-    { "from": "PDF Generator", "to": "Account Executive", "label": "Fulfill Order" }
+    {
+      "from": "Product Catalogue",
+      "to": "Product Selection",
+      "label": "Browse Products"
+    },
+    {
+      "from": "Product Selection",
+      "to": "Cart",
+      "label": "Add Items"
+    },
+    {
+      "from": "Cart",
+      "to": "Order Details",
+      "label": "Review Order"
+    },
+    {
+      "from": "Order Details",
+      "to": "Order API",
+      "label": "Submit Order"
+    },
+    {
+      "from": "Order API",
+      "to": "Admin Dashboard",
+      "label": "Manage Order"
+    },
+    {
+      "from": "Admin Dashboard",
+      "to": "Order Status",
+      "label": "Process Order"
+    }
   ],
   "features": [
-    "Grid matrix entry allowing quick ordering of multiple variants at once",
-    "On-the-fly PDF invoice generation utilizing custom layouts",
-    "Dynamic volume-based tier discount pricing module"
+    "Responsive product catalogue and customer ordering interface",
+    "RESTful APIs for product and order data",
+    "Administrative dashboard for managing products, orders, and customer information",
+    "Reusable frontend components designed for maintainability",
+    "Responsive layouts optimized for desktop and mobile use"
   ],
   "technicalDecisions": [
-    { "area": "Deployment Stack", "tech": "Static Web Build", "reason": "Pre-renders the entire catalog into static pages, loading in milliseconds for speed-focused wholesale buyers." }
+    {
+      "area": "Frontend",
+      "tech": "Nuxt.js",
+      "reason": "Used to create a responsive, component-based customer ordering experience."
+    },
+    {
+      "area": "Backend API",
+      "tech": "Django REST Framework",
+      "reason": "Used to separate business data and application logic behind maintainable RESTful APIs."
+    },
+    {
+      "area": "Database",
+      "tech": "PostgreSQL",
+      "reason": "Used as the relational data layer for structured product, customer, and order information."
+    }
   ],
-  "challenges": "Managing thousands of complex variant combinations on mobile layouts without causing rendering lag.",
-  "outcomes": "Reduced order processing cycles from 2 days to under 15 minutes, boosting client satisfaction metrics.",
-  "githubLink": "https://github.com/joshuavicente"
+  "challenges": "Structuring product, customer, and order workflows so the customer-facing experience remained simple while administrators had enough information to manage day-to-day operations.",
+  "outcomes": "Delivered a production-ready e-commerce platform that established a modern online ordering experience and centralized core product and order management workflows for the business.",
+  "githubLink": null,
+  "liveLink": "https://delgar.store/"
 }

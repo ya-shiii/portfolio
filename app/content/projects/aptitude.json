@@ -4,34 +4,79 @@
   "title": "Aptitude",
   "subtitle": "Event Management & Ticketing Platform",
   "category": "Event Platform",
-  "dateRange": "2023 - 2024",
-  "clientType": "Commercial",
+  "dateRange": "Jan 2026 - Feb 2026",
+  "clientType": "Event & Entertainment Business",
   "featured": true,
-  "summary": "An enterprise ticketing platform designed to manage high-volume checkins, real-time analytics, and smooth payment processing.",
-  "technologies": ["Nuxt.js", "Django REST Framework", "PostgreSQL", "Stripe", "PayMongo"],
-  "overview": "Aptitude is a ticketing and event orchestration engine designed to support thousands of concurrent check-ins. The platform leverages modern client-side caching alongside robust backend transactional queues.",
-  "problem": "Legacy ticketing portals crashed under ticket release loads, resulting in duplicate order creation and inventory mismatches.",
-  "role": "Lead Full Stack Architect responsible for checkout flow design, API performance, and database locking strategies.",
-  "solution": "Built a system featuring atomic locks during cart reservations and structured data synchronization pathways.",
+  "summary": "Full-stack event management and ticketing platform built to support event publishing, online ticket sales, attendee registration, and administrative operations.",
+  "technologies": [
+    "Nuxt.js",
+    "Django REST Framework",
+    "PostgreSQL",
+    "Stripe",
+    "PayMongo",
+    "Tailwind CSS"
+  ],
+  "overview": "Aptitude is a custom event management and ticketing platform designed for an entertainment business. The system brings event publishing, ticket purchasing workflows, attendee information, and administrative tools into a single platform while supporting payment and analytics integrations.",
+  "problem": "The business needed a dedicated platform for managing events and online ticketing instead of relying entirely on disconnected third-party tools and manual administrative workflows.",
+  "role": "Full Stack Web Developer responsible for translating business requirements into the frontend experience, backend APIs, ticketing workflows, payment integrations, and supporting administrative tools.",
+  "solution": "Designed and developed a Nuxt.js frontend backed by Django REST Framework and PostgreSQL. The platform supports event management, ticket purchasing workflows, administrative operations, and Stripe and PayMongo integrations.",
   "workflow": [
-    { "from": "User Profile", "to": "Cart Queue", "label": "Reserve Seat" },
-    { "from": "Cart Queue", "to": "Checkout API", "label": "Atomic Lock Check" },
-    { "from": "Checkout API", "to": "Stripe/PayMongo", "label": "Execute Intent" },
-    { "from": "Stripe/PayMongo", "to": "Order Registry", "label": "Webhook Confirmation" },
-    { "from": "Order Registry", "to": "Attendee Records", "label": "Ticket Generation" },
-    { "from": "Attendee Records", "to": "Analytics & Admin", "label": "Sync Stream" }
+    {
+      "from": "Event Listing",
+      "to": "Event Details",
+      "label": "Select Event"
+    },
+    {
+      "from": "Event Details",
+      "to": "Ticket Selection",
+      "label": "Choose Ticket"
+    },
+    {
+      "from": "Ticket Selection",
+      "to": "Checkout",
+      "label": "Submit Order"
+    },
+    {
+      "from": "Checkout",
+      "to": "Payment Gateway",
+      "label": "Process Payment"
+    },
+    {
+      "from": "Payment Gateway",
+      "to": "Order Records",
+      "label": "Confirm Transaction"
+    },
+    {
+      "from": "Order Records",
+      "to": "Admin & Analytics",
+      "label": "Manage & Track"
+    }
   ],
   "features": [
-    "Atomic cart reservation queues with automatic TTL release",
-    "QR Code ticket check-in pipeline with offline caching validation",
-    "Real-time event analytics dashboards featuring live occupancy tracking"
+    "Event publishing and management tools",
+    "Online ticket selection and purchasing workflows",
+    "Administrative dashboards for event and order operations",
+    "Stripe and PayMongo payment integration"
   ],
   "technicalDecisions": [
-    { "area": "Backend Framework", "tech": "Django REST Framework", "reason": "Provides robust database transaction tools and clean serializer logic." },
-    { "area": "Frontend", "tech": "Nuxt.js", "reason": "Enabled fast initial render via static page generation combined with dynamic checkout hydration." }
+    {
+      "area": "Backend API",
+      "tech": "Django REST Framework",
+      "reason": "Used to structure event, ticket, and order data behind reusable RESTful API endpoints."
+    },
+    {
+      "area": "Frontend",
+      "tech": "Nuxt.js",
+      "reason": "Used to build a responsive event and ticket purchasing experience with reusable Vue components."
+    },
+    {
+      "area": "Payments",
+      "tech": "Stripe & PayMongo",
+      "reason": "Integrated payment services to support the platform's online checkout workflows."
+    }
   ],
-  "challenges": "Resolving race conditions when two customers checked out the last remaining ticket simultaneously.",
-  "outcomes": "Zero inventory leaks across 10+ major local events, processing over 15,000 tickets seamlessly.",
-  "githubLink": "https://github.com/joshuavicente",
-  "liveLink": "https://github.com/joshuavicente"
+  "challenges": "Designing a ticket purchasing and payment flow that connected the customer-facing experience, backend order records, third-party payment services, and analytics tracking without losing transaction context.",
+  "outcomes": "Delivered a custom event and ticketing platform that centralized event publishing, online ticket purchasing, administrative workflows, and payment integrations",
+  "githubLink": null,
+  "liveLink": "https://aptitudeentertainment.com"
 }

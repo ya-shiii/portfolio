@@ -150,15 +150,6 @@ export const useSectionPresenter = () => {
     window.addEventListener('keydown', onKeyDown)
     window.addEventListener('touchstart', onTouchStart, { passive: true })
     window.addEventListener('touchend', onTouchEnd, { passive: true })
-
-    // If loaded or redirected with a hash anchor link (e.g. #beyond-code), sync section index immediately
-    if (typeof window !== 'undefined' && window.location.hash) {
-      const hashId = window.location.hash.replace('#', '')
-      const matchIdx = SECTION_IDS.indexOf(hashId)
-      if (matchIdx !== -1) {
-        activeIndex.value = matchIdx
-      }
-    }
   })
 
   onUnmounted(() => {

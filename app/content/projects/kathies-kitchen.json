@@ -4,66 +4,79 @@
   "title": "Kathie's Kitchen",
   "subtitle": "E-Commerce Platform",
   "category": "E-Commerce",
-  "dateRange": "2023 - 2024",
-  "clientType": "Local Food Brand",
+  "dateRange": "Nov 2025 - Dec 2025",
+  "clientType": "International Retail Client",
   "featured": true,
-  "summary": "Custom online ordering system that converts orders directly into kitchen preparation tasks with localized logistics.",
+  "summary": "Custom e-commerce and online ordering platform built for an international food retail client, with administrative tools for managing products and customer orders.",
   "technologies": [
     "Nuxt.js",
-    "Django",
+    "Django REST Framework",
     "PostgreSQL",
-    "PayMongo"
+    "Tailwind CSS",
+    "JavaScript"
   ],
-  "overview": "Kathie's Kitchen is a specialized culinary commerce engine focusing on immediate delivery schedules, ingredient availability updates, and direct-to-courier notifications.",
-  "problem": "Generic shopping templates failed to handle location-based delivery radius checks and dynamic kitchen capacity limits.",
-  "role": "Full Stack Developer designing the order matching engine and the kitchen operator dashboard.",
-  "solution": "Developed a custom geo-fenced cart calculation pipeline, coupled with WebSockets for instantaneous dashboard order updates.",
+  "overview": "Kathie's Kitchen is a custom e-commerce platform developed for an international client. It provides customers with a responsive online product browsing and ordering experience while giving the business custom administrative tools for managing products and orders.",
+  "problem": "The business needed a dedicated online ordering platform that could present its products clearly, collect customer orders, and reduce the manual work involved in managing order information.",
+  "role": "Full Stack Web Developer responsible for the customer-facing application, Django REST APIs, order workflow, administrative tools, and email-based order communication.",
+  "solution": "Built a Nuxt.js storefront connected to Django REST Framework APIs and a PostgreSQL-backed order system. The platform supports product browsing, cart and order submission workflows, administrative order management, and transactional email communication.",
   "workflow": [
     {
       "from": "Product Catalogue",
-      "to": "Cart Checkout",
-      "label": "Configure Add-ons"
+      "to": "Product Selection",
+      "label": "Browse Products"
     },
     {
-      "from": "Cart Checkout",
-      "to": "Delivery Router",
-      "label": "Geo-fence Verify"
+      "from": "Product Selection",
+      "to": "Cart",
+      "label": "Add Items"
     },
     {
-      "from": "Delivery Router",
-      "to": "Payment Gateway",
-      "label": "Secure Pay"
+      "from": "Cart",
+      "to": "Order Form",
+      "label": "Review Order"
     },
     {
-      "from": "Payment Gateway",
-      "to": "Kitchen Queue",
-      "label": "Push WebSocket Alert"
+      "from": "Order Form",
+      "to": "Order API",
+      "label": "Submit Order"
     },
     {
-      "from": "Kitchen Queue",
-      "to": "Courier Assign",
-      "label": "Order Ready State"
+      "from": "Order API",
+      "to": "Admin Dashboard",
+      "label": "Manage Order"
+    },
+    {
+      "from": "Order API",
+      "to": "Email Notification",
+      "label": "Send Confirmation"
     }
   ],
   "features": [
-    "Dynamic preparation scheduling limiting orders per 30-minute block",
-    "Real-time driver mapping and delivery routing using local road grids",
-    "Tailored billing statement generator sending receipts via SMS/Email"
+    "Responsive product catalogue and online ordering experience",
+    "Cart and customer order submission workflow",
+    "Custom administrative tools for managing products and orders",
+    "Transactional email notifications for order communication",
+    "RESTful API architecture connecting the Nuxt.js frontend and Django backend"
   ],
   "technicalDecisions": [
     {
-      "area": "Interactive Canvas",
-      "tech": "Vue.js Composition API",
-      "reason": "Provided instant reactive states for customer modifications on the dish customization steps."
+      "area": "Frontend",
+      "tech": "Nuxt.js",
+      "reason": "Used to build a responsive, component-based storefront and ordering experience."
     },
     {
-      "area": "Database",
-      "tech": "PostgreSQL",
-      "reason": "Leveraged JSONB fields for customized ingredient selections and spatial queries for distance calculation."
+      "area": "Backend API",
+      "tech": "Django REST Framework",
+      "reason": "Used to model products, orders, and order items and expose the data through structured REST endpoints."
+    },
+    {
+      "area": "Order Communication",
+      "tech": "Django Email",
+      "reason": "Used HTML email templates and backend email handling to support order notifications and customer communication."
     }
   ],
-  "challenges": "Handling high volumes of concurrent dinner orders without locking up the kitchen queue screen.",
-  "outcomes": "Increased daily order capacity by 45% while reducing customer communication overhead via automatic status messages.",
-  "githubLink": "https://github.com/joshuavicente",
-  "liveLink": "https://github.com/joshuavicente"
+  "challenges": "Connecting the customer ordering workflow, backend order records, administrative management, and reliable HTML email delivery while keeping the ordering experience simple for customers.",
+  "outcomes": "Delivered a production-ready online ordering platform that gave customers a dedicated digital ordering experience and provided the business with custom tools for managing products and customer orders.",
+  "githubLink": null,
+  "liveLink": "https://kathieskitchen.com/"
 }

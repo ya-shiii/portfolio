@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted, nextTick } from 'vue'
 import GlobalNetwork from '~/components/global/GlobalNetwork.vue'
 import SystemIdentity from '~/components/global/SystemIdentity.vue'
 import BurgerTrigger from '~/components/global/BurgerTrigger.vue'
@@ -126,6 +126,17 @@ const animationKeys = ref(Array(8).fill(0))
 
 watch(() => presenter.activeIndex.value, (newIdx) => {
   animationKeys.value[newIdx]++
+})
+
+// On mount, read the URL hash once and jump to the matching section.
+// nextTick ensures the presenter is fully set up before we navigate.
+onMounted(() => {
+  nextTick(() => {
+    if (window.location.hash) {
+      const hashId = window.location.hash.replace('#', '')
+      presenter.goToById(hashId)
+    }
+  })
 })
 
 const scrollToSection = (id: string) => {

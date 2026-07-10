@@ -191,7 +191,7 @@
       "date": "May 23, 2026",
       "location": "NMSC, Misamis Occidental",
       "role": "Resource Speaker",
-      "topic": null,
+      "topic": "Break the pattern: Creating your own path",
       "description": "Participated as a resource speaker during a whole-day technology seminar organized in coordination with CICT NMSC faculty and students, supporting technology education and aspiring student innovators.",
       "hasCertificate": true,
       "certificateImage": "/credentials/nmsc-tech-seminar-2026/certificate.jpg",
@@ -202,37 +202,39 @@
       ]
     },
     {
-      "id": "wtm-zamboanga-2023",
+      "id": "wtm-zamboanga-2026",
       "event": "Women Techmakers Zamboanga",
-      "organization": "WTM / GDG Zamboanga",
-      "date": "2023",
-      "location": "Zamboanga City",
-      "role": "Invited Resource Speaker",
-      "topic": "Bridging Design and Backends in Nuxt.js",
-      "description": "Shared insights on responsive systems, state synchronization, and reactive layouts.",
+      "organization": "Women Techmakers Zamboanga",
+      "date": "2026",
+      "location": "Zamboanga City, Philippines",
+      "role": "Invited Speaker",
+      "topic": "You Don't Need the Perfect Dev Path",
+      "description": "Invited as a speaker by Women Techmakers Zamboanga, sharing professional experiences and insights from my journey as a Full Stack Developer and technology community leader.",
       "hasCertificate": true,
-      "certificateImage": "/credentials/wtm-zamboanga-2023/certificate.jpg",
+      "certificateImage": "/credentials/wtm-zamboanga-2026/certificate.jpg",
       "images": [
-        "/credentials/wtm-zamboanga-2023/photo-1.jpg",
-        "/credentials/wtm-zamboanga-2023/photo-2.jpg",
-        "/credentials/wtm-zamboanga-2023/photo-3.jpg"
+        "/credentials/wtm-zamboanga-2026/679576036_1259254323059419_2926000621865481397_n.jpg",
+        "/credentials/wtm-zamboanga-2026/682396611_1259254383059413_4987389875132987806_n.jpg",
+        "/credentials/wtm-zamboanga-2026/photo-3.jpg"
       ]
     },
     {
-      "id": "gdg-zamboanga-2023",
-      "event": "Google Developer Groups Zamboanga",
-      "organization": "GDG Zamboanga",
-      "date": "2023",
-      "location": "Zamboanga",
-      "role": "Invited Resource Speaker",
-      "topic": "Modern E-Commerce Orchestration with Django & Vue",
-      "description": "Addressed checkout flow state tracking and resilience during API failures.",
+      "id": "tcnhs-career-guidance-2025",
+      "event": "Career Guidance Day 2025",
+      "organization": "Tangub City National High School",
+      "date": "December 2025",
+      "location": "Tangub City, Misamis Occidental, Philippines",
+      "role": "Resource Speaker",
+      "topic": "DREAM: Discover. Reach. Empower. Achieve. Make it.",
+      "description": "Invited as a resource speaker during Tangub City National High School's Career Guidance Day, sharing career experiences and practical insights with students interested in Information Technology and technology-related career pathways.",
       "hasCertificate": true,
-      "certificateImage": "/credentials/gdg-zamboanga-2023/certificate.jpg",
+      "certificateImage": "/credentials/tcnhs-career-guidance-2025/certificate.jpg",
       "images": [
-        "/credentials/gdg-zamboanga-2023/photo-1.jpg",
-        "/credentials/gdg-zamboanga-2023/photo-2.jpg",
-        "/credentials/gdg-zamboanga-2023/photo-3.jpg"
+        "/credentials/tcnhs-career-guidance-2025/588566656_1434969375305561_3973986139140585162_n.jpg",
+        "/credentials/tcnhs-career-guidance-2025/595304085_1434960341973131_6606445574939234810_n.jpg", 
+        "/credentials/tcnhs-career-guidance-2025/595901718_1434969675305531_4099495852840896224_n.jpg",
+        "/credentials/tcnhs-career-guidance-2025/596807796_1434969478638884_2961631187025658084_n.jpg",
+        "/credentials/tcnhs-career-guidance-2025/597155044_1434970215305477_4390341820529747342_n.jpg"
       ]
     }
   ],

@@ -30,6 +30,6 @@ export interface ProjectCaseStudy {
   technicalDecisions: TechnicalDecision[];
   challenges: string;
   outcomes: string;
-  githubLink?: string;
-  liveLink?: string;
+  githubLink?: string | null;
+  liveLink?: string | null;
 }

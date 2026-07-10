@@ -2,34 +2,76 @@
   "slug": "techsavvy",
   "projectNumber": "004",
   "title": "TECHSAVVY",
-  "subtitle": "Website & Community Systems",
-  "category": "Community System",
-  "dateRange": "2023 - Present",
-  "clientType": "Non-Profit Tech Community",
+  "subtitle": "Website & Systems",
+  "category": "Community Platform",
+  "dateRange": "Feb 2026 - Apr 2026",
+  "clientType": "Technology Community",
   "featured": true,
-  "summary": "Central platform managing membership enrollment, seminar registration, and digital credentials for tech students.",
-  "technologies": ["Nuxt.js", "Tailwind CSS", "GitHub Pages"],
-  "overview": "TECHSAVVY is the digital hub of Misamis Occidental's leading developer community. It integrates attendee lists, certificate templates, and event schedules into one unified layout.",
-  "problem": "Manual distribution of event certificates was error-prone and consumed hours of organizer time.",
-  "role": "Lead Architect and Community Developer, designing the automated generation workflow.",
-  "solution": "Built a static-generated portal reading CSV rosters and drawing certificates onto HTML5 canvases for immediate PDF download.",
+  "summary": "Official website and supporting digital systems built to strengthen TECHSAVVY Community's online presence and support its programs, events, partnerships, and future services.",
+  "technologies": [
+    "Nuxt.js",
+    "Django REST Framework",
+    "PostgreSQL",
+    "Tailwind CSS",
+    "JavaScript"
+  ],
+  "overview": "The TECHSAVVY website and supporting systems serve as the community's central digital hub. The platform presents the organization's programs, events, partnerships, and technology initiatives while providing a scalable foundation for future digital services.",
+  "problem": "TECHSAVVY needed a centralized digital platform that could clearly represent the organization, communicate its programs and partnerships, and support the community's continued growth beyond social media.",
+  "role": "Full Stack Web Developer and community technology lead, responsible for translating organizational requirements into the platform's frontend, backend services, and extensible content structure.",
+  "solution": "Designed and developed a responsive Nuxt.js interface with Tailwind CSS and built supporting backend services using Django REST Framework and PostgreSQL. The system uses reusable components and APIs so the platform can expand as new community programs and digital services are introduced.",
   "workflow": [
-    { "from": "Event Hub", "to": "Attendee Form", "label": "Self Registration" },
-    { "from": "Attendee Form", "to": "Roster Table", "label": "Attendance Check" },
-    { "from": "Roster Table", "to": "Canvas Renderer", "label": "Draft Certificate Graphics" },
-    { "from": "Canvas Renderer", "to": "PDF Exporter", "label": "Generate Signed Certificate" },
-    { "from": "PDF Exporter", "to": "Member Mailer", "label": "Dispatch Notification" }
+    {
+      "from": "Community Programs",
+      "to": "Content Structure",
+      "label": "Organize Information"
+    },
+    {
+      "from": "Content Structure",
+      "to": "Backend API",
+      "label": "Manage Data"
+    },
+    {
+      "from": "Backend API",
+      "to": "Nuxt Frontend",
+      "label": "Deliver Content"
+    },
+    {
+      "from": "Nuxt Frontend",
+      "to": "Community Hub",
+      "label": "Present Programs"
+    },
+    {
+      "from": "Community Hub",
+      "to": "Members & Partners",
+      "label": "Connect Community"
+    }
   ],
   "features": [
-    "Secure attendee self-validation system matching registration database hashes",
-    "Dynamic certificate drawing tool with custom font sizing and orientation",
-    "Upcoming schedule manager showing event dates, speakers, and resources"
+    "Responsive official website for community programs and initiatives",
+    "Centralized presentation of events, partnerships, and organizational information",
+    "Reusable frontend components for future platform expansion",
+    "RESTful backend services supporting structured platform content",
+    "Scalable foundation for future TECHSAVVY digital services"
   ],
   "technicalDecisions": [
-    { "area": "Static Delivery", "tech": "Nuxt static build", "reason": "Runs completely on GitHub Pages, ensuring high availability with $0 infrastructure costs." }
+    {
+      "area": "Frontend",
+      "tech": "Nuxt.js",
+      "reason": "Used to create a fast, responsive interface with reusable Vue components."
+    },
+    {
+      "area": "Backend API",
+      "tech": "Django REST Framework",
+      "reason": "Used to structure organizational content and supporting services behind reusable API endpoints."
+    },
+    {
+      "area": "Architecture",
+      "tech": "Reusable Components & APIs",
+      "reason": "The platform was structured for continued expansion as TECHSAVVY introduces additional programs and digital services."
+    }
   ],
-  "challenges": "Generating thousands of high-resolution certificates dynamically in-browser without crashing mobile tabs.",
-  "outcomes": "Automated certificate delivery for over 800 participants, saving approximately 40+ hours of setup per tech event.",
-  "githubLink": "https://github.com/joshuavicente",
-  "liveLink": "https://github.com/joshuavicente"
+  "challenges": "Designing a platform broad enough to represent TECHSAVVY's programs, events, partnerships, and technology initiatives without locking the organization into a rigid single-purpose website.",
+  "outcomes": "Established a centralized digital platform for TECHSAVVY Community and created a maintainable foundation for presenting organizational initiatives and expanding future digital services.",
+  "githubLink": null,
+  "liveLink": "https://techsavvies.space/"
 }

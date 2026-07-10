@@ -247,12 +247,12 @@ onMounted(() => {
           node.targetPos.set(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.7, -1)
         } else if (props.mode === 'project') {
           // Recede background, focus focus project
-          node.targetPos.set(node.basePos.x * 1.2, node.basePos.y * 1.2, -4)
+          node.targetPos.set(node.basePos.x * 1.4, node.basePos.y * 1.4, -4)
         } else {
           // Normal mode (floating drift)
           const time = clock.getElapsedTime()
-          const driftX = Math.sin(time * 0.5 + i) * 0.3
-          const driftY = Math.cos(time * 0.4 + i) * 0.3
+          const driftX = Math.sin(time * 0.9 + i) * 0.3
+          const driftY = Math.cos(time * 0.9 + i) * 0.3
           node.targetPos.copy(node.basePos).add(new THREE.Vector3(driftX, driftY, 0))
         }
 
@@ -262,9 +262,9 @@ onMounted(() => {
         
         let magnetRatio = 0.0
         if (!prefersReduced.value && distToMouse < attractionRange && mouse.x > -9000) {
-          magnetRatio = 1.0 - distToMouse / attractionRange
+          magnetRatio = 1.2 - distToMouse / attractionRange
           // Steeper exponential curve — barely felt at range edge, intense snap up close
-          const force = Math.pow(magnetRatio, 2.2) * 1.5
+          const force = Math.pow(magnetRatio, 2.2) * 1.7
           const dir = new THREE.Vector3().subVectors(mouse3D, node.pos).normalize()
           node.targetPos.addScaledVector(dir, force * 4.0) // Strong pull toward cursor
           // Push nodes toward camera for a dramatic 3D depth effect

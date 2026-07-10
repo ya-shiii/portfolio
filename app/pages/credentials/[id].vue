@@ -81,27 +81,30 @@
             <span class="font-mono text-[8px] text-white/15">{{ talk.id }}/certificate.jpg</span>
           </div>
 
-          <!-- Smaller Event Snapshots Gallery Grid -->
-          <div v-if="talk.images && talk.images.length" class="flex flex-col gap-3">
-            <span class="font-mono text-[9px] text-white/40 tracking-widest uppercase">// EVENT SNAPSHOTS</span>
-            <div class="grid grid-cols-3 gap-2">
-              <div 
-                v-for="(img, idx) in talk.images" 
-                :key="idx"
-                class="relative aspect-square rounded overflow-hidden border border-white/5 hover:border-primary/40 transition-colors bg-surface group"
-              >
-                <img 
-                  :src="img" 
-                  :alt="`${talk.event} photo ${idx + 1}`" 
-                  class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-all duration-300 scale-105 group-hover:scale-100"
-                  @error="(e: Event) => ((e.target as HTMLImageElement).parentElement!.style.display = 'none')"
-                />
-              </div>
+        </div>
+      </div>
+
+      <!-- Event Snapshots Gallery Grid -->
+      <div v-if="talk.images && talk.images.length" class="flex flex-col gap-6 mt-4 border-t border-white/5 pt-10">
+        <span class="font-mono text-[10px] text-primary tracking-widest uppercase">// EVENT SNAPSHOTS</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div 
+            v-for="(img, idx) in talk.images" 
+            :key="idx"
+            class="relative aspect-[4/3] rounded overflow-hidden border border-white/5 hover:border-primary/40 transition-all bg-surface group cursor-pointer"
+            @click="selectedImage = img"
+          >
+            <img 
+              :src="img" 
+              :alt="`${talk.event} photo ${idx + 1}`" 
+              class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-all duration-500 scale-105 group-hover:scale-100"
+              @error="(e: Event) => ((e.target as HTMLImageElement).parentElement!.style.display = 'none')"
+            />
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <span class="font-mono text-[10px] text-white tracking-widest bg-black/50 px-3 py-1 rounded backdrop-blur-sm">ENLARGE</span>
             </div>
           </div>
-
         </div>
-
       </div>
 
     </div>
@@ -115,6 +118,28 @@
     <div class="relative z-10 w-full max-w-4xl mx-auto border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-mono text-white/20 select-none">
       <div>STATUS: SECURE GATEWAY // PROTOCOL_PORT: 443</div>
       <div>&copy; {{ new Date().getFullYear() }} JOSHUA VICENTE. ALL RIGHTS RESERVED.</div>
+    </div>
+
+    <!-- Image Modal -->
+    <div 
+      v-if="selectedImage"
+      class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 md:p-12 backdrop-blur-md cursor-zoom-out"
+      @click="selectedImage = null"
+    >
+      <div class="relative max-w-7xl max-h-full flex items-center justify-center">
+        <button 
+          class="absolute -top-12 right-0 text-white/50 hover:text-white font-mono text-xs tracking-widest uppercase transition-colors"
+          @click.stop="selectedImage = null"
+        >
+          [ CLOSE ]
+        </button>
+        <img 
+          :src="selectedImage" 
+          alt="Enlarged snapshot" 
+          class="max-w-full max-h-[85vh] object-contain rounded border border-white/10 shadow-2xl"
+          @click.stop
+        />
+      </div>
     </div>
   </main>
 </template>
@@ -136,13 +161,10 @@ const { speaking } = getPortfolio()
 
 const talk = computed(() => speaking.find(t => t.id === route.params.id))
 const certImageError = ref(false)
+const selectedImage = ref<string | null>(null)
 
 const goBack = () => {
-  if (window.history.length > 1) {
-    router.back()
-  } else {
-    router.push('/#beyond-code')
-  }
+  navigateTo('/#beyond-code')
 }
 
 const checksum = computed(() => {
