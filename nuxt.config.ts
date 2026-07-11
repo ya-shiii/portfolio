@@ -2,9 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
+  future: {
+    compatibilityVersion: 4,
+  },
   ssr: true,
   nitro: {
-    preset: 'github_pages',
+    preset: 'github-pages',
     prerender: {
       routes: [
         '/',
@@ -12,9 +15,9 @@ export default defineNuxtConfig({
         '/projects/kathies-kitchen',
         '/projects/delgar',
         '/projects/techsavvy',
-        '/credentials/nmsc-tech-seminar-2024',
-        '/credentials/wtm-zamboanga-2023',
-        '/credentials/gdg-zamboanga-2023',
+        '/credentials/nmsc-tech-seminar-2026',
+        '/credentials/wtm-zamboanga-2026',
+        '/credentials/tcnhs-career-guidance-2025',
       ]
     }
   },
@@ -32,7 +35,7 @@ export default defineNuxtConfig({
         { name: 'og:type', content: 'website' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
   },
