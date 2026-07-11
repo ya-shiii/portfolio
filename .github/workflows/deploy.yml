@@ -35,7 +35,9 @@ jobs:
         run: npm ci
 
       - name: Build static files
-        run: npm run generate
+        run: |
+          npx nuxt prepare
+          npm run generate
         env:
           NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
 
