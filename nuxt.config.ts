@@ -2,12 +2,9 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
-  future: {
-    compatibilityVersion: 4,
-  },
   ssr: true,
   nitro: {
-    preset: 'github-pages',
+    preset: 'github_pages',
     prerender: {
       routes: [
         '/',
