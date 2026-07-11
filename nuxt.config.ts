@@ -8,6 +8,11 @@ export default defineNuxtConfig({
   ssr: true,
   nitro: {
     preset: 'github-pages',
+    hooks: {
+      'close': () => {
+        process.exit(0)
+      }
+    },
     prerender: {
       routes: [
         '/',
