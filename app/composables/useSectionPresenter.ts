@@ -109,6 +109,12 @@ export const useSectionPresenter = () => {
   }
 
   const onKeyDown = (e: KeyboardEvent) => {
+    // Ignore keydown events if the user is typing in an input or textarea
+    if (e.target instanceof HTMLElement) {
+      const tag = e.target.tagName.toLowerCase()
+      if (tag === 'input' || tag === 'textarea') return
+    }
+
     if (isTransitioning.value) return
 
     const { canScrollUp, canScrollDown } = getActiveSlideScrollInfo()

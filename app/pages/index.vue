@@ -99,6 +99,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import GlobalNetwork from '~/components/global/GlobalNetwork.vue'
 import SystemIdentity from '~/components/global/SystemIdentity.vue'
 import BurgerTrigger from '~/components/global/BurgerTrigger.vue'
@@ -118,6 +119,7 @@ import ContactSection from '~/components/sections/ContactSection.vue'
 
 import { useSectionPresenter } from '~/composables/useSectionPresenter'
 
+const route = useRoute()
 const menuOpen = ref(false)
 const presenter = useSectionPresenter()
 
@@ -126,6 +128,15 @@ const animationKeys = ref(Array(8).fill(0))
 
 watch(() => presenter.activeIndex.value, (newIdx) => {
   animationKeys.value[newIdx]++
+})
+
+// Listen for hash changes (like clicking the logo when already on the page)
+// Notice there is NO immediate: true here, so it won't race with onMounted!
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    const hashId = newHash.replace('#', '')
+    presenter.goToById(hashId)
+  }
 })
 
 // On mount, read the URL hash once and jump to the matching section.
