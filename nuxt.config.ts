@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     }
   },
   app: {
-    baseURL: '/portfolio/',
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     pageTransition: { name: 'system-fade', mode: 'out-in' },
     head: {
       title: 'Joshua Vicente | Full Stack Developer',
