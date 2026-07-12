@@ -34,9 +34,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Cache Nuxt build files
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/nuxt
+          key: nuxt-cache-${{ hashFiles('package-lock.json') }}
+          restore-keys: nuxt-cache-
+
       - name: Build static files
         run: |
           npx nuxt prepare
+          test -f node_modules/.cache/nuxt/.nuxt/tsconfig.json || { echo "ERROR: Nuxt tsconfig not generated at expected path. Check tsconfig.json extends path."; exit 1; }
           npm run generate
 
       - name: Upload artifact

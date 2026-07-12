@@ -54,11 +54,4 @@ export default defineNuxtConfig({
     exposeConfig: true,
     viewer: false
   },
-  typescript: {
-    tsConfig: {
-      compilerOptions: {
-        types: ['node']
-      }
-    }
-  }
 })
