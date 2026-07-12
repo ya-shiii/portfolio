@@ -50,7 +50,7 @@
 
           <!-- Static Resume Trigger Path -->
           <a 
-            :href="socialLinks.resume"
+            :href="resumeUrl"
             target="_blank"
             class="bg-surface/20 hover:bg-surface/50 border border-white/5 hover:border-primary/40 rounded p-4 flex flex-col items-center gap-2 group transition-all reveal-link"
             style="animation-delay: 0.64s"
@@ -149,13 +149,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { usePortfolioContent } from '~/composables/usePortfolioContent'
+import { useRuntimeConfig } from '#app'
 
 defineProps<{ isActive: boolean }>()
 
 const { getPortfolio } = usePortfolioContent()
 const { socialLinks } = getPortfolio()
+
+const config = useRuntimeConfig()
+const resumeUrl = computed(() => {
+  const base = config.app.baseURL
+  const cleanBase = base.endsWith('/') ? base : `${base}/`
+  const cleanResume = socialLinks.resume.startsWith('/') ? socialLinks.resume.slice(1) : socialLinks.resume
+  return `${cleanBase}${cleanResume}`
+})
 
 // Modal State
 const isEmailModalOpen = ref(false)

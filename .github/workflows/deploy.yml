@@ -45,6 +45,8 @@ jobs:
         run: |
           npx nuxt prepare
           npm run generate
+        env:
+          NUXT_APP_BASE_URL: /portfolio/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
