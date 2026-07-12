@@ -44,7 +44,6 @@ jobs:
       - name: Build static files
         run: |
           npx nuxt prepare
-          test -f node_modules/.cache/nuxt/.nuxt/tsconfig.json || { echo "ERROR: Nuxt tsconfig not generated at expected path. Check tsconfig.json extends path."; exit 1; }
           npm run generate
 
       - name: Upload artifact

@@ -1,3 +1,38 @@
 {
-  "extends": "./node_modules/.cache/nuxt/.nuxt/tsconfig.json"
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "paths": {
+      "~/*": ["./app/*"],
+      "@/*": ["./app/*"],
+      "~~/*": ["./*"],
+      "@@/*": ["./*"]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "nuxt.config.ts",
+    ".nuxt/types/**/*.d.ts",
+    ".nuxt/imports.d.ts",
+    ".nuxt/components.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".output",
+    "dist"
+  ]
 }
