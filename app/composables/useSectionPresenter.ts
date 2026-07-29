@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 export type SlideDirection = 'down' | 'up'
@@ -57,7 +57,10 @@ export const useSectionPresenter = () => {
   // Reads live from the cached container (no traversal, just property reads).
   // Returns {canScrollUp, canScrollDown} or false-false if no container.
   const getScrollBoundary = () => {
-    if (!activeContainer) return { canScrollUp: false, canScrollDown: false }
+    // isConnected guard: if Vue recreated the SectionSlide (due to key change)
+    // before nextTick ran, the cached node is detached. Treat as non-scrollable
+    // so we don't accidentally navigate when we shouldn't.
+    if (!activeContainer || !activeContainer.isConnected) return { canScrollUp: false, canScrollDown: false }
     const scrollTop = activeContainer.scrollTop
     const scrollHeight = activeContainer.scrollHeight
     const clientHeight = activeContainer.clientHeight
@@ -78,9 +81,15 @@ export const useSectionPresenter = () => {
     isTransitioning.value = true
     activeIndex.value = targetIndex
 
-    // Bind immediately — all slides are always in the DOM so this is safe.
-    // Doing it here ensures activeContainer is current before isTransitioning clears.
-    bindContainer(targetIndex)
+    // IMPORTANT: bind in nextTick, not synchronously.
+    // index.vue watches activeIndex and increments animationKeys, which changes
+    // the :key on SectionSlide — Vue destroys and recreates the DOM element.
+    // If we cache the element before that re-render, activeContainer points to
+    // a detached node whose scrollHeight is 0, making canScrollDown always false.
+    // nextTick runs after Vue flushes the DOM update, so we get the new element.
+    nextTick(() => {
+      bindContainer(targetIndex)
+    })
 
     setTimeout(() => {
       isTransitioning.value = false
