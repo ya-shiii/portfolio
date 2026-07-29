@@ -1,4 +1,5 @@
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 
 export type SlideDirection = 'down' | 'up'
 export type SlideState = 'active' | 'before' | 'after' | 'entering' | 'exiting'
@@ -18,7 +19,11 @@ const TRANSITION_DURATION = 700 // ms
 const DEBOUNCE_DURATION = 900   // ms — slightly longer so transition finishes before next can fire
 
 export const useSectionPresenter = () => {
-  const activeIndex = ref(0)
+  const route = useRoute()
+  const hashId = route?.hash ? route.hash.replace('#', '') : ''
+  const initialIndex = SECTION_IDS.indexOf(hashId)
+  
+  const activeIndex = ref(initialIndex !== -1 ? initialIndex : 0)
   const direction = ref<SlideDirection>('down')
   const isTransitioning = ref(false)
 
@@ -86,26 +91,24 @@ export const useSectionPresenter = () => {
     const { canScrollUp, canScrollDown } = getActiveSlideScrollInfo()
 
     if (e.deltaY > 0) {
-      if (canScrollDown) {
-        // Let native scrolling handle it
-        return
+      // Section has more content to scroll — let the browser handle it natively
+      if (canScrollDown) return
+      // At the bottom boundary: only navigate if debounce has cleared
+      if (!debounceTimer) {
+        e.preventDefault()
+        next()
+        debounceTimer = setTimeout(() => { debounceTimer = null }, DEBOUNCE_DURATION)
       }
-      e.preventDefault()
-      if (debounceTimer) return
-      next()
     } else if (e.deltaY < 0) {
-      if (canScrollUp) {
-        // Let native scrolling handle it
-        return
+      // Section has content to scroll up — let the browser handle it natively
+      if (canScrollUp) return
+      // At the top boundary: only navigate if debounce has cleared
+      if (!debounceTimer) {
+        e.preventDefault()
+        prev()
+        debounceTimer = setTimeout(() => { debounceTimer = null }, DEBOUNCE_DURATION)
       }
-      e.preventDefault()
-      if (debounceTimer) return
-      prev()
     }
-
-    debounceTimer = setTimeout(() => {
-      debounceTimer = null
-    }, DEBOUNCE_DURATION)
   }
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -151,8 +154,14 @@ export const useSectionPresenter = () => {
     }
   }
 
+  // Small delay before attaching wheel listener so that the DOM layout
+  // is fully painted and scrollHeight values are accurate on first load.
+  // Without this, the first few wheel events see scrollHeight === clientHeight
+  // (layout not settled yet) and wrongly call e.preventDefault().
   onMounted(() => {
-    window.addEventListener('wheel', onWheel, { passive: false })
+    setTimeout(() => {
+      window.addEventListener('wheel', onWheel, { passive: false })
+    }, 300)
     window.addEventListener('keydown', onKeyDown)
     window.addEventListener('touchstart', onTouchStart, { passive: true })
     window.addEventListener('touchend', onTouchEnd, { passive: true })
