@@ -30,44 +30,19 @@ export const useSectionPresenter = () => {
   let debounceTimer: ReturnType<typeof setTimeout> | null = null
   let touchStartY = 0
 
-  // Cached container reference — avoids getElementById + closest on every wheel tick.
-  // Scroll properties (scrollTop/scrollHeight/clientHeight) are read live from this
-  // reference in the wheel handler, which is fast (no layout reflow) because the
-  // browser already has these values computed during scrolling.
+  // Cached reference to the active section's scroll container.
+  // Updated via nextTick after navigation so we get the newly-keyed DOM element.
   let activeContainer: Element | null = null
 
   const bindContainer = (idx: number) => {
     const id = SECTION_IDS[idx]
     if (!id) return
-
-    // All SectionSlides are always in the DOM (position: fixed, translated off-screen)
-    // so getElementById always succeeds immediately — no need to wait for transitions.
     const el = document.getElementById(id)
     if (!el) return
-
     const container = el.closest('.section-slide')
     if (!container) return
-
     activeContainer = container
-    // Reset scroll so every section always starts from the top
     activeContainer.scrollTop = 0
-  }
-
-  // ── Scroll boundary check ─────────────────────────────────────────────────
-  // Reads live from the cached container (no traversal, just property reads).
-  // Returns {canScrollUp, canScrollDown} or false-false if no container.
-  const getScrollBoundary = () => {
-    // isConnected guard: if Vue recreated the SectionSlide (due to key change)
-    // before nextTick ran, the cached node is detached. Treat as non-scrollable
-    // so we don't accidentally navigate when we shouldn't.
-    if (!activeContainer || !activeContainer.isConnected) return { canScrollUp: false, canScrollDown: false }
-    const scrollTop = activeContainer.scrollTop
-    const scrollHeight = activeContainer.scrollHeight
-    const clientHeight = activeContainer.clientHeight
-    return {
-      canScrollUp: scrollTop > 1,
-      canScrollDown: scrollTop + clientHeight < scrollHeight - 1,
-    }
   }
 
   // ── Navigation ─────────────────────────────────────────────────────────────
@@ -81,19 +56,11 @@ export const useSectionPresenter = () => {
     isTransitioning.value = true
     activeIndex.value = targetIndex
 
-    // IMPORTANT: bind in nextTick, not synchronously.
-    // index.vue watches activeIndex and increments animationKeys, which changes
-    // the :key on SectionSlide — Vue destroys and recreates the DOM element.
-    // If we cache the element before that re-render, activeContainer points to
-    // a detached node whose scrollHeight is 0, making canScrollDown always false.
-    // nextTick runs after Vue flushes the DOM update, so we get the new element.
-    nextTick(() => {
-      bindContainer(targetIndex)
-    })
+    // nextTick: wait for Vue to re-render the new :key'd SectionSlide element
+    // before caching it. The old element gets destroyed by the animationKeys watch.
+    nextTick(() => bindContainer(targetIndex))
 
-    setTimeout(() => {
-      isTransitioning.value = false
-    }, TRANSITION_DURATION)
+    setTimeout(() => { isTransitioning.value = false }, TRANSITION_DURATION)
   }
 
   const goToById = (id: string) => {
@@ -110,27 +77,37 @@ export const useSectionPresenter = () => {
     return 'after'
   }
 
-  // ── Input Handlers ─────────────────────────────────────────────────────────
+  // ── Wheel handler ──────────────────────────────────────────────────────────
+  //
+  // Simple rule:
+  //   • If the section still has content in the scroll direction → do nothing
+  //     (browser scrolls it natively, no intervention needed)
+  //   • If the section is at the boundary → navigate to the next/prev section
+  //   • Never block native scroll; only preventDefault when actually navigating
 
   const onWheel = (e: WheelEvent) => {
-    if (isTransitioning.value) {
-      e.preventDefault()
-      return
-    }
+    // If container isn't cached yet (nextTick gap) or isn't in the DOM,
+    // let the browser handle it natively — no intervention.
+    if (!activeContainer || !activeContainer.isConnected) return
 
-    // Read live from cached container — fast, no DOM traversal
-    const { canScrollUp, canScrollDown } = getScrollBoundary()
+    const { scrollTop, scrollHeight, clientHeight } = activeContainer
+    const atTop    = scrollTop <= 1
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 1
 
     if (e.deltaY > 0) {
-      if (canScrollDown) return          // native scroll handles it
-      if (!debounceTimer) {
+      // Still content below → native scroll, don't touch it
+      if (!atBottom) return
+      // At the bottom → navigate (once per debounce, skip if still transitioning)
+      if (!isTransitioning.value && !debounceTimer) {
         e.preventDefault()
         next()
         debounceTimer = setTimeout(() => { debounceTimer = null }, DEBOUNCE_DURATION)
       }
     } else if (e.deltaY < 0) {
-      if (canScrollUp) return            // native scroll handles it
-      if (!debounceTimer) {
+      // Still content above → native scroll
+      if (!atTop) return
+      // At the top → navigate
+      if (!isTransitioning.value && !debounceTimer) {
         e.preventDefault()
         prev()
         debounceTimer = setTimeout(() => { debounceTimer = null }, DEBOUNCE_DURATION)
@@ -143,16 +120,18 @@ export const useSectionPresenter = () => {
       const tag = e.target.tagName.toLowerCase()
       if (tag === 'input' || tag === 'textarea') return
     }
-    if (isTransitioning.value) return
+    if (isTransitioning.value || !activeContainer) return
 
-    const { canScrollUp, canScrollDown } = getScrollBoundary()
+    const { scrollTop, scrollHeight, clientHeight } = activeContainer
+    const atTop    = scrollTop <= 1
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 1
 
     if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
-      if (canScrollDown) return
+      if (!atBottom) return
       e.preventDefault()
       next()
     } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
-      if (canScrollUp) return
+      if (!atTop) return
       e.preventDefault()
       prev()
     }
@@ -163,29 +142,26 @@ export const useSectionPresenter = () => {
   }
 
   const onTouchEnd = (e: TouchEvent) => {
-    if (isTransitioning.value) return
+    if (isTransitioning.value || !activeContainer) return
     const delta = touchStartY - (e.changedTouches[0]?.clientY ?? 0)
     if (Math.abs(delta) < 40) return
 
-    const { canScrollUp, canScrollDown } = getScrollBoundary()
-    if (delta > 0) {
-      if (canScrollDown) return
-      next()
-    } else {
-      if (canScrollUp) return
-      prev()
-    }
+    const { scrollTop, scrollHeight, clientHeight } = activeContainer
+    const atTop    = scrollTop <= 1
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 1
+
+    if (delta > 0 && atBottom) next()
+    else if (delta < 0 && atTop) prev()
   }
 
   // ── Lifecycle ──────────────────────────────────────────────────────────────
 
   onMounted(() => {
-    // Small delay so DOM layout is settled before we start intercepting wheels.
+    // Small delay so DOM layout is fully settled before first boundary check
     setTimeout(() => {
       bindContainer(activeIndex.value)
       window.addEventListener('wheel', onWheel, { passive: false })
     }, 300)
-
     window.addEventListener('keydown', onKeyDown)
     window.addEventListener('touchstart', onTouchStart, { passive: true })
     window.addEventListener('touchend', onTouchEnd, { passive: true })
