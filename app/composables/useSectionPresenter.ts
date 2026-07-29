@@ -1,4 +1,4 @@
-import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 export type SlideDirection = 'down' | 'up'
@@ -53,7 +53,7 @@ export const useSectionPresenter = () => {
 
   const onContainerScroll = () => refreshScrollCache()
 
-  const bindContainer = (idx: number) => {
+  const bindContainer = (idx: number, resetScroll = true) => {
     // Remove listener from the old container
     if (activeContainer) {
       activeContainer.removeEventListener('scroll', onContainerScroll)
@@ -70,8 +70,10 @@ export const useSectionPresenter = () => {
     if (!container) return
 
     activeContainer = container
-    // Reset scroll position so the section always starts from the top
-    activeContainer.scrollTop = 0
+    // Reset scroll position so the section always starts from the top.
+    // We skip this on the very first mount bind so we don't fight the
+    // browser's own scroll restoration.
+    if (resetScroll) activeContainer.scrollTop = 0
     activeContainer.addEventListener('scroll', onContainerScroll, { passive: true })
     refreshScrollCache()
   }
@@ -86,6 +88,11 @@ export const useSectionPresenter = () => {
     direction.value = targetIndex > activeIndex.value ? 'down' : 'up'
     isTransitioning.value = true
     activeIndex.value = targetIndex
+
+    // Bind the new container immediately — all slides are always in the DOM
+    // (position: fixed, just translated). This closes the race window where
+    // isTransitioning becomes false before the new activeContainer is cached.
+    bindContainer(targetIndex)
 
     setTimeout(() => {
       isTransitioning.value = false
@@ -190,14 +197,8 @@ export const useSectionPresenter = () => {
     window.addEventListener('touchend', onTouchEnd, { passive: true })
   })
 
-  // Re-bind the scroll container whenever the active section changes,
-  // and wait for the next tick so the new section's DOM is rendered.
-  watch(activeIndex, (newIdx) => {
-    nextTick(() => {
-      // Give the slide transition a moment to render before binding
-      setTimeout(() => bindContainer(newIdx), TRANSITION_DURATION)
-    })
-  })
+  // No watch needed — bindContainer is now called directly inside goTo
+  // so the cache is always updated before isTransitioning clears.
 
   onUnmounted(() => {
     if (activeContainer) {
