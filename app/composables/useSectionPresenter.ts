@@ -16,7 +16,7 @@ const SECTION_IDS = [
 ]
 
 const TRANSITION_DURATION = 700 // ms
-const DEBOUNCE_DURATION = 900   // ms — slightly longer so transition finishes before next can fire
+const DEBOUNCE_DURATION = 900   // ms
 
 export const useSectionPresenter = () => {
   const route = useRoute()
@@ -30,39 +30,18 @@ export const useSectionPresenter = () => {
   let debounceTimer: ReturnType<typeof setTimeout> | null = null
   let touchStartY = 0
 
-  // ── Cached scroll state (updated reactively, not on every wheel tick) ──────
-  // Reading scrollTop/scrollHeight/clientHeight on every wheel event causes
-  // layout thrashing. Instead we cache the container and boundary booleans,
-  // refreshing them only when the section changes or the container scrolls.
+  // Cached container reference — avoids getElementById + closest on every wheel tick.
+  // Scroll properties (scrollTop/scrollHeight/clientHeight) are read live from this
+  // reference in the wheel handler, which is fast (no layout reflow) because the
+  // browser already has these values computed during scrolling.
   let activeContainer: Element | null = null
-  let cachedCanScrollUp = false
-  let cachedCanScrollDown = false
 
-  const refreshScrollCache = () => {
-    if (!activeContainer) {
-      cachedCanScrollUp = false
-      cachedCanScrollDown = false
-      return
-    }
-    const scrollTop = activeContainer.scrollTop
-    const scrollHeight = activeContainer.scrollHeight
-    const clientHeight = activeContainer.clientHeight
-    cachedCanScrollUp = scrollTop > 1
-    cachedCanScrollDown = scrollTop + clientHeight < scrollHeight - 1
-  }
-
-  const onContainerScroll = () => refreshScrollCache()
-
-  const bindContainer = (idx: number, resetScroll = true) => {
-    // Remove listener from the old container
-    if (activeContainer) {
-      activeContainer.removeEventListener('scroll', onContainerScroll)
-      activeContainer = null
-    }
-
+  const bindContainer = (idx: number) => {
     const id = SECTION_IDS[idx]
     if (!id) return
 
+    // All SectionSlides are always in the DOM (position: fixed, translated off-screen)
+    // so getElementById always succeeds immediately — no need to wait for transitions.
     const el = document.getElementById(id)
     if (!el) return
 
@@ -70,12 +49,22 @@ export const useSectionPresenter = () => {
     if (!container) return
 
     activeContainer = container
-    // Reset scroll position so the section always starts from the top.
-    // We skip this on the very first mount bind so we don't fight the
-    // browser's own scroll restoration.
-    if (resetScroll) activeContainer.scrollTop = 0
-    activeContainer.addEventListener('scroll', onContainerScroll, { passive: true })
-    refreshScrollCache()
+    // Reset scroll so every section always starts from the top
+    activeContainer.scrollTop = 0
+  }
+
+  // ── Scroll boundary check ─────────────────────────────────────────────────
+  // Reads live from the cached container (no traversal, just property reads).
+  // Returns {canScrollUp, canScrollDown} or false-false if no container.
+  const getScrollBoundary = () => {
+    if (!activeContainer) return { canScrollUp: false, canScrollDown: false }
+    const scrollTop = activeContainer.scrollTop
+    const scrollHeight = activeContainer.scrollHeight
+    const clientHeight = activeContainer.clientHeight
+    return {
+      canScrollUp: scrollTop > 1,
+      canScrollDown: scrollTop + clientHeight < scrollHeight - 1,
+    }
   }
 
   // ── Navigation ─────────────────────────────────────────────────────────────
@@ -89,9 +78,8 @@ export const useSectionPresenter = () => {
     isTransitioning.value = true
     activeIndex.value = targetIndex
 
-    // Bind the new container immediately — all slides are always in the DOM
-    // (position: fixed, just translated). This closes the race window where
-    // isTransitioning becomes false before the new activeContainer is cached.
+    // Bind immediately — all slides are always in the DOM so this is safe.
+    // Doing it here ensures activeContainer is current before isTransitioning clears.
     bindContainer(targetIndex)
 
     setTimeout(() => {
@@ -121,19 +109,18 @@ export const useSectionPresenter = () => {
       return
     }
 
+    // Read live from cached container — fast, no DOM traversal
+    const { canScrollUp, canScrollDown } = getScrollBoundary()
+
     if (e.deltaY > 0) {
-      // Container still has content below — let the browser scroll natively
-      if (cachedCanScrollDown) return
-      // At the bottom boundary: navigate to next section (once per debounce)
+      if (canScrollDown) return          // native scroll handles it
       if (!debounceTimer) {
         e.preventDefault()
         next()
         debounceTimer = setTimeout(() => { debounceTimer = null }, DEBOUNCE_DURATION)
       }
     } else if (e.deltaY < 0) {
-      // Container still has content above — let the browser scroll natively
-      if (cachedCanScrollUp) return
-      // At the top boundary: navigate to previous section (once per debounce)
+      if (canScrollUp) return            // native scroll handles it
       if (!debounceTimer) {
         e.preventDefault()
         prev()
@@ -147,15 +134,16 @@ export const useSectionPresenter = () => {
       const tag = e.target.tagName.toLowerCase()
       if (tag === 'input' || tag === 'textarea') return
     }
-
     if (isTransitioning.value) return
 
+    const { canScrollUp, canScrollDown } = getScrollBoundary()
+
     if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
-      if (cachedCanScrollDown) return
+      if (canScrollDown) return
       e.preventDefault()
       next()
     } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
-      if (cachedCanScrollUp) return
+      if (canScrollUp) return
       e.preventDefault()
       prev()
     }
@@ -167,15 +155,15 @@ export const useSectionPresenter = () => {
 
   const onTouchEnd = (e: TouchEvent) => {
     if (isTransitioning.value) return
-
     const delta = touchStartY - (e.changedTouches[0]?.clientY ?? 0)
     if (Math.abs(delta) < 40) return
 
+    const { canScrollUp, canScrollDown } = getScrollBoundary()
     if (delta > 0) {
-      if (cachedCanScrollDown) return
+      if (canScrollDown) return
       next()
     } else {
-      if (cachedCanScrollUp) return
+      if (canScrollUp) return
       prev()
     }
   }
@@ -183,11 +171,8 @@ export const useSectionPresenter = () => {
   // ── Lifecycle ──────────────────────────────────────────────────────────────
 
   onMounted(() => {
-    // Delay wheel listener slightly so DOM layout is fully settled on first load.
-    // Without this, scrollHeight === clientHeight initially (layout not painted yet)
-    // causing the boundary check to wrongly fire section navigation.
+    // Small delay so DOM layout is settled before we start intercepting wheels.
     setTimeout(() => {
-      // Bind to the initial active section's container
       bindContainer(activeIndex.value)
       window.addEventListener('wheel', onWheel, { passive: false })
     }, 300)
@@ -197,13 +182,7 @@ export const useSectionPresenter = () => {
     window.addEventListener('touchend', onTouchEnd, { passive: true })
   })
 
-  // No watch needed — bindContainer is now called directly inside goTo
-  // so the cache is always updated before isTransitioning clears.
-
   onUnmounted(() => {
-    if (activeContainer) {
-      activeContainer.removeEventListener('scroll', onContainerScroll)
-    }
     window.removeEventListener('wheel', onWheel)
     window.removeEventListener('keydown', onKeyDown)
     window.removeEventListener('touchstart', onTouchStart)
