@@ -1,6 +1,6 @@
 <template>
-  <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 py-24 relative z-10">
-    <div class="max-w-4xl w-full mx-auto bg-white/[0.015] border border-white/[0.04] backdrop-blur-md rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+  <section class="min-h-screen w-full flex flex-col justify-start px-6 md:px-24 py-24 relative z-10">
+    <div class="max-w-4xl w-full mx-auto my-auto bg-white/[0.015] border border-white/[0.04] backdrop-blur-md rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
       <!-- Ambient Glow Orbs -->
       <div class="absolute -right-20 -top-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute -left-20 -bottom-20 w-40 h-40 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>

@@ -1,6 +1,6 @@
 <template>
-  <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 py-20 relative z-10 select-none">
-    <div class="max-w-4xl flex flex-col items-start gap-4">
+  <section class="min-h-screen w-full flex flex-col justify-start px-6 md:px-24 py-20 relative z-10 select-none">
+    <div class="max-w-4xl flex flex-col items-start gap-4 my-auto">
       <span
         class="reveal-item font-mono text-xs tracking-[0.3em] text-primary uppercase animate-pulse"
         :style="{ animationDelay: '0s' }"

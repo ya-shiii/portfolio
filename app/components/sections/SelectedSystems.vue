@@ -1,6 +1,6 @@
 <template>
-  <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 py-24 relative z-10">
-    <div class="max-w-5xl w-full mx-auto">
+  <section class="min-h-screen w-full flex flex-col justify-start px-6 md:px-24 py-24 relative z-10">
+    <div class="max-w-5xl w-full mx-auto my-auto">
       <div class="section-header reveal-row" style="animation-delay: 0s">
         <span class="font-mono text-xs tracking-widest text-primary">01 / SELECTED SYSTEMS</span>
         <div class="h-[1px] flex-grow bg-white/10"></div>

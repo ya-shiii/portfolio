@@ -1,6 +1,6 @@
 <template>
-  <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-24 py-24 relative z-10">
-    <div class="max-w-4xl w-full mx-auto flex flex-col items-center justify-center text-center">
+  <section class="min-h-screen w-full flex flex-col justify-start px-6 md:px-24 py-24 relative z-10">
+    <div class="max-w-4xl w-full mx-auto my-auto flex flex-col items-center justify-center text-center">
       
       <div class="flex items-center gap-4 w-full mb-16 reveal-header" style="animation-delay: 0s">
         <div class="h-[1px] flex-grow bg-white/10"></div>
