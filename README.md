@@ -1,48 +1,96 @@
-# Systems in Motion Portfolio — Joshua Vicente
+# Portfolio
 
-A production-ready, immersive, static-generated personal portfolio website for Joshua Vicente, built using **Nuxt 4**, **Three.js**, **GSAP**, and **Tailwind CSS**.
+This is my personal portfolio built with **Nuxt 4**, **Tailwind CSS**, **Three.js**, and **GSAP**.
 
-## Project Architecture
-
-This application represents a custom digital system where components dynamically display values loaded from local static JSON files. It does not use external runtime servers, APIs, or databases, allowing seamless static deployment.
-
-### Technologies
-- **Core Framework**: Nuxt 4 (Future compatibility directory configuration enabled)
-- **Styling**: Tailwind CSS & PostCSS
-- **Animations**: GSAP
-- **3D Network Backdrop**: Three.js WebGL canvas utilizing customized shader particles, spring-restoration physics, magnetic cursor fields, and pointer-click repulsion pulses.
+The goal isn't just to showcase projects, but to build something interactive without relying on a backend. Everything is statically generated and deployed through GitHub Pages, while keeping the project structured similarly to how I'd organize a production application.
 
 ---
 
-## File System Overview
-- [portfolio.json](file:///c:/Users/Gamer/OneDrive/Desktop/Rhenli%20Commissions/Portfolio/app/content/portfolio.json): Holds identity parameters, Hero statements, About profiles, Experience milestones, and Contact pointers.
-- [projects/](file:///c:/Users/Gamer/OneDrive/Desktop/Rhenli%20Commissions/Portfolio/app/content/projects/): Separate JSON matrices containing complete metadata, decision sheets, and transactional data routes.
-- [GlobalNetwork.vue](file:///c:/Users/Gamer/OneDrive/Desktop/Rhenli%20Commissions/Portfolio/app/components/global/GlobalNetwork.vue): Coordinates standard WebGL drift states and constellation transitions.
-- [SystemMap.vue](file:///c:/Users/Gamer/OneDrive/Desktop/Rhenli%20Commissions/Portfolio/app/components/navigation/SystemMap.vue): Star map navigational overlay.
+## Tech Stack
+
+- Nuxt 4
+- Vue 3
+- Tailwind CSS
+- GSAP
+- Three.js
 
 ---
 
-## Setup and Local Development
+## Project Structure
 
-Follow these steps to run the project locally on your machine:
+Most of the website content comes from local JSON files.
 
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
+Instead of hardcoding text into components, sections such as the hero, experience, projects, and contact information are loaded from structured data. This made it easier to update content without touching the UI.
 
-2. **Run Development Server**:
-   ```bash
-   npm run dev
-   ```
+```
+app/
+├── components/
+├── content/
+│   ├── portfolio.json
+│   └── projects/
+├── pages/
+└── assets/
+```
 
-3. **Verify Static Generation (Local HTML Compile)**:
-   ```bash
-   npm run generate
-   ```
+Some notable files:
 
-## GitHub Pages Deployment
+- `app/content/portfolio.json` – Personal information and site content.
+- `app/content/projects/` – Individual project data.
+- `components/global/GlobalNetwork.vue` – Interactive Three.js background.
+- `components/navigation/SystemMap.vue` – Navigation overlay.
 
-The static output is configured using Nitro's `github-pages` preset, rendering static pathways under `/` or sub-folders dynamically.
+---
 
-A pre-configured CI/CD workflow is available under [.github/workflows/deploy.yml](file:///c:/Users/Gamer/OneDrive/Desktop/Rhenli%20Commissions/Portfolio/.github/workflows/deploy.yml). When you push code changes to the `main` branch, the static site compiles and deploys to GitHub Pages automatically.
+## Animations
+
+The site uses GSAP for page transitions and UI animations.
+
+The animated background is built with Three.js and includes:
+
+- Particle network
+- Mouse interaction
+- Magnetic cursor effect
+- Click ripple effect
+- Smooth camera movement
+
+Most of these effects are purely visual and don't affect navigation or page performance.
+
+---
+
+## Running Locally
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Start the development server
+
+```bash
+npm run dev
+```
+
+Generate the static site
+
+```bash
+npm run generate
+```
+
+---
+
+## Deployment
+
+The project is configured for GitHub Pages using Nuxt's static generation.
+
+Pushing to the `main` branch automatically triggers the GitHub Actions workflow, builds the project, and deploys the generated files.
+
+No server or database is required.
+
+---
+
+## Notes
+
+This repository contains only the portfolio website itself.
+
+Some featured projects reference production systems that aren't publicly available due to client confidentiality. Where possible, architecture, screenshots, or case studies are included instead of source code.
